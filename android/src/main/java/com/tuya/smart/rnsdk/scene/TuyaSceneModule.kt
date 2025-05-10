@@ -281,7 +281,7 @@ class TuyaSceneModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
                         }
 
                         override fun onError(code: String?, error: String?) {
-                            promise.reject(code, error)
+                            promise.reject(code ?: "UNKNOWN_ERROR", error)
                         }
                     }
             )
@@ -496,7 +496,7 @@ class TuyaSceneModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
                         }
 
                         override fun onError(code: String?, error: String?) {
-                            promise.reject(code, error)
+                            promise.reject(code ?: "UNKNOWN_ERROR", error)
                         }
                     }
             )

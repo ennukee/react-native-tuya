@@ -128,7 +128,7 @@ class TuyaHomeManagerModule(reactContext: ReactApplicationContext) : ReactContex
             }
 
             override fun onError(code: String?, error: String?) {
-                promise.reject(code, error)
+                promise.reject(code ?: "UNKNOWN_ERROR", error)
             }
         }
     }

@@ -168,7 +168,7 @@ class TuyaDeviceModule(reactContext: ReactApplicationContext) : ReactContextBase
 
 
             override fun onError(code: String?, error: String?) {
-                promise.reject(code, error)
+                promise.reject(code ?: "UNKNOWN_ERROR", error)
             }
         }
     }
