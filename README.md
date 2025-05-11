@@ -1,3 +1,9 @@
+# forked for patching
+
+This is a fork of https://github.com/owowagency/react-native-tuya to allow me to patch the various errors that occur while using the base branch.
+
+Not for public use, and is not published on NPM.
+
 # @owowagency/react-native-tuya
 
 This is a fork of [TuyaInc/tuyasmart-home-sdk-react-native](https://github.com/TuyaInc/tuyasmart-home-sdk-react-native), fixing a lot of issues we came across and a better install guide. It also uses TypeScript. We use it currently in multiple projects for clients and it is stable.
