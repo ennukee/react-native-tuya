@@ -64,11 +64,11 @@ class TuyaUserModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
     /* Log in with a guest account */
     @ReactMethod
     fun loginWithTouristUser(params: ReadableMap, promise: Promise) {
-        if (ReactParamsCheck.checkParams(arrayOf(COUNTRYCODE, NICKNAME), params)) {
+        if (ReactParamsCheck.checkParams(arrayOf(COUNTRYCODE, USERID), params)) {
             ThingHomeSdk.getUserInstance().touristRegisterAndLogin(
                     params.getString(COUNTRYCODE),
-                    params.getString(NICKNAME),
-                    getLoginCallback(promise))
+                    params.getString(USERID),
+                    getRegisterCallback(promise))
         }
     }
 

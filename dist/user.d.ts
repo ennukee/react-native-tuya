@@ -41,6 +41,6 @@ export declare function getCurrentUser(): Promise<User | null>;
 export declare function cancelAccount(): Promise<string>;
 export declare type GuestAccountLoginParams = {
     countryCode: string;
-    nickname: string;
+    userId: string;
 };
 export declare function loginWithGuest(params: GuestAccountLoginParams): Promise<any>;
