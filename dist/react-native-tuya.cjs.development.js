@@ -251,6 +251,13 @@ function logout() {
 function cancelAccount() {
   return tuya$8.cancelAccount();
 }
+function loginWithGuest(params) {
+  if (reactNative.Platform.OS === 'ios') {
+    // TODO: Implement iOS guest login code
+    return Promise.resolve(null);
+  }
+  return tuya$8.loginWithGuest(params);
+}
 
 exports.DEVLISTENER = DEVLISTENER;
 exports.GROUPLISTENER = GROUPLISTENER;
@@ -280,6 +287,7 @@ exports.initActivator = initActivator;
 exports.initBluetoothDualModeActivator = initBluetoothDualModeActivator;
 exports.joinFamily = joinFamily;
 exports.loginWithEmail = loginWithEmail;
+exports.loginWithGuest = loginWithGuest;
 exports.logout = logout;
 exports.openNetworkSettings = openNetworkSettings;
 exports.queryHomeList = queryHomeList;

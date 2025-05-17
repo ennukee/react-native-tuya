@@ -61,6 +61,17 @@ class TuyaUserModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
         }
     }
 
+    /* Log in with a guest account */
+    @ReactMethod
+    fun loginWithTouristUser(params: ReadableMap, promise: Promise) {
+        if (ReactParamsCheck.checkParams(arrayOf(COUNTRYCODE, NICKNAME), params)) {
+            ThingHomeSdk.getUserInstance().touristRegisterAndLogin(
+                    params.getString(COUNTRYCODE),
+                    params.getString(NICKNAME),
+                    getLoginCallback(promise))
+        }
+    }
+
     /* 手机验证码登录 */
     @ReactMethod
     fun loginWithValidateCode(params: ReadableMap, promise: Promise) {

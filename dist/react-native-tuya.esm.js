@@ -248,6 +248,13 @@ function logout() {
 function cancelAccount() {
   return tuya$8.cancelAccount();
 }
+function loginWithGuest(params) {
+  if (Platform.OS === 'ios') {
+    // TODO: Implement iOS guest login code
+    return Promise.resolve(null);
+  }
+  return tuya$8.loginWithGuest(params);
+}
 
-export { ActivatorType, DEVLISTENER, GROUPLISTENER, HARDWAREUPGRADELISTENER, HOMECHANGE, HOMESTATUS, SINGLETRANSFER, SUBDEVLISTENER, addEvent, addMember, addTimerWithTask, bridge, cancelAccount, createHome, dismissHome, getAllTimerWithDeviceId, getCurrentUser, getCurrentWifi, getDataPointStat, getEmailValidateCode, getHomeDetail, getOtaInfo, getRegisterEmailValidateCode, getRoomDeviceList, getTimerTaskStatusWithDeviceId, initActivator, initBluetoothDualModeActivator, joinFamily, loginWithEmail, logout, openNetworkSettings, queryHomeList, queryMemberList, queryRoomList, registerAccountWithEmail, registerDevListener, removeDevice, removeMember, removeTimerWithTask, renameDevice, resetEmailPassword, send, sortRoom, startBluetoothScan, startOta, stopConfig, unRegisterAllDevListeners, updateHome, updateTimerStatusWithTask, updateTimerWithTask };
+export { ActivatorType, DEVLISTENER, GROUPLISTENER, HARDWAREUPGRADELISTENER, HOMECHANGE, HOMESTATUS, SINGLETRANSFER, SUBDEVLISTENER, addEvent, addMember, addTimerWithTask, bridge, cancelAccount, createHome, dismissHome, getAllTimerWithDeviceId, getCurrentUser, getCurrentWifi, getDataPointStat, getEmailValidateCode, getHomeDetail, getOtaInfo, getRegisterEmailValidateCode, getRoomDeviceList, getTimerTaskStatusWithDeviceId, initActivator, initBluetoothDualModeActivator, joinFamily, loginWithEmail, loginWithGuest, logout, openNetworkSettings, queryHomeList, queryMemberList, queryRoomList, registerAccountWithEmail, registerDevListener, removeDevice, removeMember, removeTimerWithTask, renameDevice, resetEmailPassword, send, sortRoom, startBluetoothScan, startOta, stopConfig, unRegisterAllDevListeners, updateHome, updateTimerStatusWithTask, updateTimerWithTask };
 //# sourceMappingURL=react-native-tuya.esm.js.map

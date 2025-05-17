@@ -4,6 +4,16 @@ This is a fork of https://github.com/owowagency/react-native-tuya to allow me to
 
 Not for public use, and is not published on NPM.
 
+## functions
+
+For params and typing, see the actual files under `dist/`
+
+**activator**
+ - `openNetworkSettings(): any` - Opens the device's network settings
+ - `initActivator(params: ...): Promise<...>` - ?
+ - `stopConfig(): any` - ?
+ - `startBluetoothScan(): any` - Starts a Bluetooth scan
+
 # @owowagency/react-native-tuya
 
 This is a fork of [TuyaInc/tuyasmart-home-sdk-react-native](https://github.com/TuyaInc/tuyasmart-home-sdk-react-native), fixing a lot of issues we came across and a better install guide. It also uses TypeScript. We use it currently in multiple projects for clients and it is stable.
