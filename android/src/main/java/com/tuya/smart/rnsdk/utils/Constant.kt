@@ -30,6 +30,7 @@ object Constant {
     const val KEY = "key"
     const val SECRET = "secret"
     const val USERID = "userId"
+    const val NICKNAME = "nickname"
     const val ACCESSTOKEN = "accessToken"
     const val TOKEN = "token"
     const val FILEPATH = "filePath"

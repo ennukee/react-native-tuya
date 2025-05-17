@@ -25,11 +25,13 @@ import com.tuya.smart.rnsdk.utils.Constant.TEMPUNITENUM
 import com.tuya.smart.rnsdk.utils.Constant.TOKEN
 import com.tuya.smart.rnsdk.utils.Constant.UID
 import com.tuya.smart.rnsdk.utils.Constant.USERID
+import com.tuya.smart.rnsdk.utils.Constant.NICKNAME
 import com.tuya.smart.rnsdk.utils.Constant.VALIDATECODE
 import com.tuya.smart.rnsdk.utils.Constant.getIResultCallback
 import com.tuya.smart.rnsdk.utils.ReactParamsCheck
 import com.tuya.smart.rnsdk.utils.TuyaReactUtils
 import java.io.File
+import android.util.Log
 
 class TuyaUserModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
 
@@ -64,11 +66,15 @@ class TuyaUserModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
     /* Log in with a guest account */
     @ReactMethod
     fun loginWithTouristUser(params: ReadableMap, promise: Promise) {
-        if (ReactParamsCheck.checkParams(arrayOf(COUNTRYCODE, USERID), params)) {
+        Log.d("TuyaUserModule", "[tuya] loginWithTouristUser called with params: $params")
+        if (ReactParamsCheck.checkParams(arrayOf(COUNTRYCODE, NICKNAME), params)) {
+            Log.d("TuyaUserModule", "[tuya] loginWithTouristUser type check passed, registering...")
             ThingHomeSdk.getUserInstance().touristRegisterAndLogin(
                     params.getString(COUNTRYCODE),
-                    params.getString(USERID),
+                    params.getString(NICKNAME),
                     getRegisterCallback(promise))
+        } else {
+            Log.d("TuyaUserModule", "[tuya] loginWithTouristUser failed: params did not match expected keys")
         }
     }
 
@@ -339,10 +345,12 @@ class TuyaUserModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
     fun getRegisterCallback(promise: Promise): IRegisterCallback? {
         return object : IRegisterCallback {
             override fun onSuccess(user: User?) {
+                Log.d("TuyaUserModule", "[tuya] getRegisterCallback onSuccess called with user: $user")
                 promise.resolve(TuyaReactUtils.parseToWritableMap(user))
             }
 
             override fun onError(code: String?, error: String?) {
+                Log.d("TuyaUserModule", "[tuya] getRegisterCallback onError called with code: $code, error: $error")
                 promise.reject(code ?: "UNKNOWN_ERROR", error)
             }
 

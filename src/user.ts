@@ -81,7 +81,7 @@ export function cancelAccount(): Promise<string> {
 
 export type GuestAccountLoginParams = {
   countryCode: string;
-  userId: string;
+  nickname: string;
 };
 
 export function loginWithGuest(params: GuestAccountLoginParams): Promise<any> {
