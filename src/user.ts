@@ -72,7 +72,8 @@ export type User = {
 export async function getCurrentUser(): Promise<User | null> {
   const user = await tuya.getCurrentUser();
   // The iOS SDK returns an empty user model but the Android one doesn't.
-  return user && user.email ? user : null;
+  // Need to check for username over email, as guest accounts do not have an email.
+  return user && user.username ? user : null;
 }
 
 export function cancelAccount(): Promise<string> {

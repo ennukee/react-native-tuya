@@ -220,7 +220,8 @@ var getCurrentUser = function getCurrentUser() {
   try {
     return Promise.resolve(tuya$8.getCurrentUser()).then(function (user) {
       // The iOS SDK returns an empty user model but the Android one doesn't.
-      return user && user.email ? user : null;
+      // Need to check for username over email, as guest accounts do not have an email.
+      return user && user.username ? user : null;
     });
   } catch (e) {
     return Promise.reject(e);
