@@ -256,7 +256,7 @@ function loginWithGuest(params) {
     // TODO: Implement iOS guest login code
     return Promise.resolve(null);
   }
-  return tuya$8.loginWithGuest(params);
+  return tuya$8.loginWithTouristUser(params);
 }
 
 exports.DEVLISTENER = DEVLISTENER;
