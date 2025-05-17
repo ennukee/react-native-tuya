@@ -89,5 +89,5 @@ export function loginWithGuest(params: GuestAccountLoginParams): Promise<any> {
     // TODO: Implement iOS guest login code
     return Promise.resolve(null);
   }
-  return tuya.loginWithGuest(params);
+  return tuya.loginWithTouristUser(params);
 }
