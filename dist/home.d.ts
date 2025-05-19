@@ -1,4 +1,5 @@
 import { DeviceDps } from './device';
+import { TuyaError } from './generic';
 export declare type QueryRoomListParams = {
     homeId?: number;
 };
@@ -7,7 +8,7 @@ export declare type QueryRoomListResponse = {
     displayOrder: number;
     id: number;
     roomId: number;
-}[];
+}[] | TuyaError;
 export declare function queryRoomList(params: QueryRoomListParams): Promise<QueryRoomListResponse>;
 export declare type GetHomeDetailParams = {
     homeId: number;
@@ -22,14 +23,14 @@ export declare type DeviceDetailResponse = {
     dps: DeviceDps;
     homeDisplayOrder: number;
     roomId: number;
-};
+} | TuyaError;
 export declare type GetHomeDetailResponse = {
     deviceList: DeviceDetailResponse[];
     groupList: any[];
     meshList: any[];
     sharedDeviceList: any[];
     sharedGroupList: any[];
-};
+} | TuyaError;
 export declare function getHomeDetail(params: GetHomeDetailParams): Promise<GetHomeDetailResponse>;
 export declare type UpdateHomeParams = {
     homeId: number;

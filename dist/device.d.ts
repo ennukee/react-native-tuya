@@ -1,10 +1,11 @@
+import { TuyaError } from './generic';
 export declare type DeviceBean = {
     productId: string;
     devId: string;
     verSw: string;
     name: string;
     dps: DeviceDps;
-};
+} | TuyaError;
 export declare type DevListenerParams = {
     devId: string;
 };
