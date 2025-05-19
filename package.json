@@ -1,5 +1,5 @@
 {
-  "version": "1.0.2",
+  "version": "1.0.5",
   "license": "MIT",
   "private": false,
   "main": "dist/index.js",
@@ -36,7 +36,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "@owowagency/react-native-tuya",
+  "name": "@ennukee/react-native-tuya",
   "description": "React Native bindings for the Tuya SDK",
   "homepage": "https://github.com/ennukee/react-native-tuya#readme",
   "author": "Dylan Bowers",
