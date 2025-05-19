@@ -22,6 +22,7 @@ import com.tuya.smart.rnsdk.utils.Constant.SSID
 import com.tuya.smart.rnsdk.utils.Constant.TIME
 import com.tuya.smart.rnsdk.utils.Constant.DEVID
 import com.tuya.smart.rnsdk.utils.Constant.TYPE
+import android.util.Log
 
 
 class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
@@ -126,6 +127,7 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
 
   @ReactMethod
   fun initActivator(params: ReadableMap, promise: Promise) {
+    Log.d("TuyaActivatorModule", "[tuya] initActivator called with params: $params")
     if (ReactParamsCheck.checkParams(arrayOf(HOMEID, SSID, PASSWORD, TIME, TYPE), params)) {
       ThingHomeSdk.getActivatorInstance().getActivatorToken(params.getDouble(HOMEID).toLong(), object : IThingActivatorGetToken {
         override fun onSuccess(token: String) {
@@ -144,9 +146,12 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
 
 
         override fun onFailure(s: String, s1: String) {
+          Log.d("TuyaActivatorModule", "[tuya] initActive failed to get token: $s, $s1")
           promise.reject(s, s1)
         }
       })
+    } else {
+      Log.d("TuyaActivatorModule", "[tuya] initActivator failed: params did not match expected keys")
     }
 
   }
@@ -210,13 +215,20 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
       1006        配网超时
        */
       override fun onError(var1: String, var2: String) {
-        promise.reject(var1, var2)
+        Log.d("TuyaActivatorModule", "[tuya] activator listener failed: $var1, $var2")
+        val errorObj = object {
+          val error = true
+          val code = var1
+          val msg = var2
+        }
+        promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
       }
 
       /**
        * 设备配网成功,且设备上线（手机可以直接控制），可以通过
        */
       override fun onActiveSuccess(var1: DeviceBean) {
+        Log.d("TuyaActivatorModule", "[tuya] activator listener success: $var1")
         promise.resolve(TuyaReactUtils.parseToWritableMap(var1))
       }
 
@@ -226,6 +238,7 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
        */
       override fun onStep(var1: String, var2: Any) {
         // IOS 没有onStep保持一致
+        Log.d("TuyaActivatorModule", "[tuya] activator listener stepped: $var1, $var2")
         //promise.reject(var1,"")
       }
     }

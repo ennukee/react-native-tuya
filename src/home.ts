@@ -1,5 +1,6 @@
 import { NativeModules } from 'react-native';
 import { DeviceDps } from './device';
+import { TuyaError } from './generic';
 
 const tuya = NativeModules.TuyaHomeModule;
 
@@ -11,7 +12,7 @@ export type QueryRoomListResponse = {
   displayOrder: number;
   id: number;
   roomId: number;
-}[];
+}[] | TuyaError;
 
 export function queryRoomList(
   params: QueryRoomListParams
@@ -32,14 +33,14 @@ export type DeviceDetailResponse = {
   dps: DeviceDps;
   homeDisplayOrder: number;
   roomId: number;
-};
+} | TuyaError;
 export type GetHomeDetailResponse = {
   deviceList: DeviceDetailResponse[];
   groupList: any[];
   meshList: any[];
   sharedDeviceList: any[];
   sharedGroupList: any[];
-};
+} | TuyaError;
 
 export function getHomeDetail(
   params: GetHomeDetailParams

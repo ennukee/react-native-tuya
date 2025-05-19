@@ -1,5 +1,6 @@
 import { NativeModules, EmitterSubscription } from 'react-native';
 import { addEvent, bridge, DEVLISTENER } from './bridgeUtils';
+import { TuyaError } from './generic';
 
 const tuya = NativeModules.TuyaDeviceModule;
 
@@ -9,7 +10,7 @@ export type DeviceBean = {
   verSw: string;
   name: string;
   dps: DeviceDps;
-};
+} | TuyaError;
 
 export type DevListenerParams = {
   devId: string;
