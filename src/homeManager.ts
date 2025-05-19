@@ -1,3 +1,4 @@
+import { TuyaError } from './generic';
 import { NativeModules, Platform } from 'react-native';
 
 const tuya = NativeModules.TuyaHomeManagerModule;
@@ -10,7 +11,7 @@ export type CreateHomeParams = {
   rooms: string[];
 };
 
-export function createHome(params: CreateHomeParams): Promise<string> {
+export function createHome(params: CreateHomeParams): Promise<string | TuyaError> {
   return tuya.createHome(params);
 }
 
@@ -29,7 +30,7 @@ export type HomeDetailsResponse = {
 
 export type QueryHomeListResponse = HomeDetailsResponse[];
 
-export async function queryHomeList(): Promise<QueryHomeListResponse> {
+export async function queryHomeList(): Promise<QueryHomeListResponse | TuyaError> {
   let homes = await tuya.queryHomeList();
   // Tuya's Android SDK uses different property names than the iOS SDK...
   if (Platform.OS === 'android') {

@@ -1,5 +1,6 @@
 import { NativeModules } from 'react-native';
 import { DeviceDps } from './device';
+import { TuyaError } from './generic';
 
 const tuya = NativeModules.TuyaTimerModule;
 
@@ -56,7 +57,7 @@ export type GetAllTimerWithDeviceIdResponse = TimerTask[];
 
 export async function getAllTimerWithDeviceId(
   params: GetAllTimerWithDeviceIdParams
-): Promise<GetAllTimerWithDeviceIdResponse> {
+): Promise<GetAllTimerWithDeviceIdResponse | TuyaError> {
   const timers = await tuya.getAllTimerWithDeviceId(params);
   timers.forEach((t: any) => {
     t.timerTaskStatus.open = !!t.timerTaskStatus.open;

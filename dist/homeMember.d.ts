@@ -1,3 +1,4 @@
+import { TuyaError } from './generic';
 export declare type QueryMemberListParams = {
     homeId: number;
 };
@@ -8,7 +9,7 @@ export declare type MemberListItem = {
     dealStatus: number;
 };
 export declare type QueryMemberListResponse = MemberListItem[];
-export declare function queryMemberList(params: QueryMemberListParams): Promise<QueryMemberListResponse>;
+export declare function queryMemberList(params: QueryMemberListParams): Promise<QueryMemberListResponse | TuyaError>;
 export declare type AddMemberParams = {
     homeId: number;
     userAccount: string;

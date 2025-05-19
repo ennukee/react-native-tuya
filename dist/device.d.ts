@@ -5,7 +5,7 @@ export declare type DeviceBean = {
     verSw: string;
     name: string;
     dps: DeviceDps;
-} | TuyaError;
+};
 export declare type DevListenerParams = {
     devId: string;
 };
@@ -23,12 +23,12 @@ export declare function send(params: object): any;
 export declare type RemoveDeviceParams = {
     devId: string;
 };
-export declare function removeDevice(params: RemoveDeviceParams): Promise<string>;
+export declare function removeDevice(params: RemoveDeviceParams): Promise<string | TuyaError>;
 export declare type RenameDeviceParams = {
     devId: string;
     name: string;
 };
-export declare function renameDevice(params: RenameDeviceParams): Promise<string>;
+export declare function renameDevice(params: RenameDeviceParams): Promise<string | TuyaError>;
 export declare type GetDataPointStatsParams = {
     devId: string;
     DataPointTypeEnum: 'DAY' | 'WEEK' | 'MONTH';

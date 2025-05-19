@@ -1,5 +1,6 @@
 import { DeviceBean } from './device';
 import { DeviceDetailResponse } from './home';
+import { TuyaError } from './generic';
 export declare function openNetworkSettings(): any;
 export declare enum ActivatorType {
     AP = "THING_AP",
@@ -20,7 +21,7 @@ export interface InitBluetoothActivatorParams {
     ssid: string;
     password: string;
 }
-export declare function initActivator(params: InitActivatorParams): Promise<DeviceDetailResponse>;
+export declare function initActivator(params: InitActivatorParams): Promise<DeviceDetailResponse | TuyaError>;
 export declare function stopConfig(): any;
 export declare function startBluetoothScan(): any;
 export declare function initBluetoothDualModeActivator(params: InitBluetoothActivatorParams): Promise<DeviceBean>;

@@ -1,3 +1,4 @@
+import { TuyaError } from './generic';
 export declare type RegisterAccountWithEmailParams = {
     countryCode: string;
     email: string;
@@ -24,7 +25,7 @@ export declare type ResetEmailPasswordParams = {
     newPassword: string;
 };
 export declare function resetEmailPassword(params: ResetEmailPasswordParams): Promise<any>;
-export declare function logout(): Promise<string>;
+export declare function logout(): Promise<string | TuyaError>;
 export declare type User = {
     email: string;
     username: string;
@@ -37,8 +38,8 @@ export declare type User = {
     nickName: string;
     phoneCode: string;
 };
-export declare function getCurrentUser(): Promise<User | null>;
-export declare function cancelAccount(): Promise<string>;
+export declare function getCurrentUser(): Promise<User | null | TuyaError>;
+export declare function cancelAccount(): Promise<string | TuyaError>;
 export declare type GuestAccountLoginParams = {
     countryCode: string;
     nickname: string;

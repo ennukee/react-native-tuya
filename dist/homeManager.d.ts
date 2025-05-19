@@ -1,3 +1,4 @@
+import { TuyaError } from './generic';
 export declare type CreateHomeParams = {
     name: string;
     geoName: string;
@@ -5,7 +6,7 @@ export declare type CreateHomeParams = {
     lat: number;
     rooms: string[];
 };
-export declare function createHome(params: CreateHomeParams): Promise<string>;
+export declare function createHome(params: CreateHomeParams): Promise<string | TuyaError>;
 export declare type HomeDetailsResponse = {
     name: string;
     admin: boolean;
@@ -19,7 +20,7 @@ export declare type HomeDetailsResponse = {
     lon: number;
 };
 export declare type QueryHomeListResponse = HomeDetailsResponse[];
-export declare function queryHomeList(): Promise<QueryHomeListResponse>;
+export declare function queryHomeList(): Promise<QueryHomeListResponse | TuyaError>;
 export declare type JoinFamilyParams = {
     homeId: number;
     action: boolean;

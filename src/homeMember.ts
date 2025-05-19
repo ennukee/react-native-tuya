@@ -1,3 +1,4 @@
+import { TuyaError } from './generic';
 import { NativeModules, Platform } from 'react-native';
 
 const tuya = NativeModules.TuyaHomeMemberModule;
@@ -13,7 +14,7 @@ export type QueryMemberListResponse = MemberListItem[];
 
 export async function queryMemberList(
   params: QueryMemberListParams
-): Promise<QueryMemberListResponse> {
+): Promise<QueryMemberListResponse | TuyaError> {
   let members = await tuya.queryMemberList(params);
   // Tuya's Android SDK uses different property names than the iOS SDK...
   if (Platform.OS === 'android') {

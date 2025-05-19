@@ -1,3 +1,4 @@
+import { TuyaError } from './generic';
 import { NativeModules } from 'react-native';
 
 const tuya = NativeModules.TuyaHomeDataManagerModule;
@@ -14,6 +15,6 @@ export type GetRoomDeviceListResponse = {
 
 export function getRoomDeviceList(
   params: GetRoomDeviceListParams
-): Promise<GetRoomDeviceListResponse> {
+): Promise<GetRoomDeviceListResponse | TuyaError> {
   return tuya.getRoomDeviceList(params);
 }

@@ -10,7 +10,7 @@ export type DeviceBean = {
   verSw: string;
   name: string;
   dps: DeviceDps;
-} | TuyaError;
+};
 
 export type DevListenerParams = {
   devId: string;
@@ -65,13 +65,13 @@ export function send(params: object) {
 
 export type RemoveDeviceParams = { devId: string };
 
-export function removeDevice(params: RemoveDeviceParams): Promise<string> {
+export function removeDevice(params: RemoveDeviceParams): Promise<string | TuyaError> {
   return tuya.removeDevice(params);
 }
 
 export type RenameDeviceParams = { devId: string; name: string };
 
-export function renameDevice(params: RenameDeviceParams): Promise<string> {
+export function renameDevice(params: RenameDeviceParams): Promise<string | TuyaError> {
   return tuya.renameDevice(params);
 }
 

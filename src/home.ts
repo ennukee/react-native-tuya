@@ -12,11 +12,11 @@ export type QueryRoomListResponse = {
   displayOrder: number;
   id: number;
   roomId: number;
-}[] | TuyaError;
+}[];
 
 export function queryRoomList(
   params: QueryRoomListParams
-): Promise<QueryRoomListResponse> {
+): Promise<QueryRoomListResponse | TuyaError> {
   return tuya.queryRoomList(params);
 }
 
@@ -33,18 +33,18 @@ export type DeviceDetailResponse = {
   dps: DeviceDps;
   homeDisplayOrder: number;
   roomId: number;
-} | TuyaError;
+};
 export type GetHomeDetailResponse = {
   deviceList: DeviceDetailResponse[];
   groupList: any[];
   meshList: any[];
   sharedDeviceList: any[];
   sharedGroupList: any[];
-} | TuyaError;
+};
 
 export function getHomeDetail(
   params: GetHomeDetailParams
-): Promise<GetHomeDetailResponse> {
+): Promise<GetHomeDetailResponse | TuyaError> {
   return tuya.getHomeDetail(params);
 }
 
@@ -56,7 +56,7 @@ export type UpdateHomeParams = {
   lat: number;
 };
 
-export function updateHome(params: UpdateHomeParams): Promise<string> {
+export function updateHome(params: UpdateHomeParams): Promise<string | TuyaError> {
   return tuya.updateHome(params);
 }
 
@@ -64,7 +64,7 @@ export type DismissHomeParams = {
   homeId: number;
 };
 
-export function dismissHome(params: DismissHomeParams): Promise<string> {
+export function dismissHome(params: DismissHomeParams): Promise<string | TuyaError> {
   return tuya.dismissHome(params);
 }
 
@@ -73,6 +73,6 @@ export type SortRoomsParams = {
   homeId: number;
 };
 
-export function sortRoom(params: SortRoomsParams): Promise<string> {
+export function sortRoom(params: SortRoomsParams): Promise<string | TuyaError> {
   return tuya.sortRoom(params);
 }

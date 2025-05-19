@@ -1,3 +1,4 @@
+import { TuyaError } from './generic';
 import { NativeModules, Platform } from 'react-native';
 
 const tuya = NativeModules.TuyaUserModule;
@@ -52,7 +53,7 @@ export function resetEmailPassword(
   return tuya.resetEmailPassword(params);
 }
 
-export function logout(): Promise<string> {
+export function logout(): Promise<string | TuyaError> {
   return tuya.logout();
 }
 
@@ -69,14 +70,14 @@ export type User = {
   phoneCode: string;
 };
 
-export async function getCurrentUser(): Promise<User | null> {
+export async function getCurrentUser(): Promise<User | null | TuyaError> {
   const user = await tuya.getCurrentUser();
   // The iOS SDK returns an empty user model but the Android one doesn't.
   // Need to check for username over email, as guest accounts do not have an email.
   return user && user.username ? user : null;
 }
 
-export function cancelAccount(): Promise<string> {
+export function cancelAccount(): Promise<string | TuyaError> {
   return tuya.cancelAccount();
 }
 

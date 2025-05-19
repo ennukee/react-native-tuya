@@ -8,8 +8,8 @@ export declare type QueryRoomListResponse = {
     displayOrder: number;
     id: number;
     roomId: number;
-}[] | TuyaError;
-export declare function queryRoomList(params: QueryRoomListParams): Promise<QueryRoomListResponse>;
+}[];
+export declare function queryRoomList(params: QueryRoomListParams): Promise<QueryRoomListResponse | TuyaError>;
 export declare type GetHomeDetailParams = {
     homeId: number;
 };
@@ -23,15 +23,15 @@ export declare type DeviceDetailResponse = {
     dps: DeviceDps;
     homeDisplayOrder: number;
     roomId: number;
-} | TuyaError;
+};
 export declare type GetHomeDetailResponse = {
     deviceList: DeviceDetailResponse[];
     groupList: any[];
     meshList: any[];
     sharedDeviceList: any[];
     sharedGroupList: any[];
-} | TuyaError;
-export declare function getHomeDetail(params: GetHomeDetailParams): Promise<GetHomeDetailResponse>;
+};
+export declare function getHomeDetail(params: GetHomeDetailParams): Promise<GetHomeDetailResponse | TuyaError>;
 export declare type UpdateHomeParams = {
     homeId: number;
     name: string;
@@ -39,13 +39,13 @@ export declare type UpdateHomeParams = {
     lon: number;
     lat: number;
 };
-export declare function updateHome(params: UpdateHomeParams): Promise<string>;
+export declare function updateHome(params: UpdateHomeParams): Promise<string | TuyaError>;
 export declare type DismissHomeParams = {
     homeId: number;
 };
-export declare function dismissHome(params: DismissHomeParams): Promise<string>;
+export declare function dismissHome(params: DismissHomeParams): Promise<string | TuyaError>;
 export declare type SortRoomsParams = {
     idList: number[];
     homeId: number;
 };
-export declare function sortRoom(params: SortRoomsParams): Promise<string>;
+export declare function sortRoom(params: SortRoomsParams): Promise<string | TuyaError>;

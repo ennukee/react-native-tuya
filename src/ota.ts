@@ -1,5 +1,6 @@
 import { NativeModules } from 'react-native';
 import { addEvent, bridge, HARDWAREUPGRADELISTENER } from './bridgeUtils';
+import { TuyaError } from './generic';
 
 const tuya = NativeModules.TuyaDeviceModule;
 
@@ -25,6 +26,6 @@ export function startOta(
   });
 }
 
-export function getOtaInfo(params: StartOtaParams): Promise<any[]> {
+export function getOtaInfo(params: StartOtaParams): Promise<any[] | TuyaError> {
   return tuya.getOtaInfo(params);
 }

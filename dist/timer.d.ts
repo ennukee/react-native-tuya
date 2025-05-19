@@ -1,4 +1,5 @@
 import { DeviceDps } from './device';
+import { TuyaError } from './generic';
 export declare type AddTimerWithTaskDpsParams = {
     devId: number;
     taskName: string;
@@ -32,7 +33,7 @@ export declare type TimerTask = {
     };
 };
 export declare type GetAllTimerWithDeviceIdResponse = TimerTask[];
-export declare function getAllTimerWithDeviceId(params: GetAllTimerWithDeviceIdParams): Promise<GetAllTimerWithDeviceIdResponse>;
+export declare function getAllTimerWithDeviceId(params: GetAllTimerWithDeviceIdParams): Promise<GetAllTimerWithDeviceIdResponse | TuyaError>;
 export declare type RemoveTimerWithTaskParams = {
     devId: number;
     taskName: string;

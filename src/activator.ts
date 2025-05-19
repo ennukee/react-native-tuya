@@ -1,6 +1,7 @@
 import { DeviceBean } from './device';
 import { NativeModules, Platform } from 'react-native';
 import { DeviceDetailResponse } from './home';
+import { TuyaError } from './generic';
 
 const tuya = NativeModules.TuyaActivatorModule;
 const tuyaBLEActivator = NativeModules.TuyaBLEActivatorModule;
@@ -34,7 +35,7 @@ export interface InitBluetoothActivatorParams {
 
 export function initActivator(
   params: InitActivatorParams
-): Promise<DeviceDetailResponse> {
+): Promise<DeviceDetailResponse | TuyaError> {
   return tuya.initActivator(params);
 }
 
