@@ -47,11 +47,12 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
 
   @ReactMethod
   fun initBluetoothDualModeActivator(params: ReadableMap, promise: Promise) {
+    Log.d("TuyaActivatorModule", "[tuya] initBluetoothDualModeActivator called with params: $params")
     if (ReactParamsCheck.checkParams(arrayOf(HOMEID, SSID, PASSWORD), params)) {
-
       ThingHomeSdk.getBleOperator().startLeScan(60000, ScanType.SINGLE
       ) { bean ->
         params.getDouble(HOMEID).toLong().let {
+          Log.d("TuyaActivatorModule", "[tuya] bluetooth found device")
           ThingHomeSdk.getActivatorInstance()
             .getActivatorToken(it, object : IThingActivatorGetToken {
               override fun onSuccess(token: String) {
@@ -77,7 +78,13 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
                     }
 
                     override fun onFailure(code: Int, msg: String?, handle: Any?) {
-                      promise.reject(code.toString(), msg);
+                      Log.d("TuyaActivatorModule", "[tuya] activator listener failed: $code, $msg")
+                      val errorObj = object {
+                        val error = true
+                        val code = code
+                        val msg = msg
+                      }
+                      promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
                     }
                   });
               }
@@ -88,6 +95,8 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
             })
         }
       };
+    } else {
+      Log.d("TuyaActivatorModule", "[tuya] initActivator failed: params did not match expected keys")
     }
   }
 

@@ -24,5 +24,5 @@ export interface InitBluetoothActivatorParams {
 export declare function initActivator(params: InitActivatorParams): Promise<DeviceDetailResponse | TuyaError>;
 export declare function stopConfig(): any;
 export declare function startBluetoothScan(): any;
-export declare function initBluetoothDualModeActivator(params: InitBluetoothActivatorParams): Promise<DeviceBean>;
+export declare function initBluetoothDualModeActivator(params: InitBluetoothActivatorParams): Promise<DeviceBean | TuyaError>;
 export declare function getCurrentWifi(success: (ssid: string) => void, error: () => void): any;

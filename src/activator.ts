@@ -52,7 +52,7 @@ export function startBluetoothScan() {
 
 export function initBluetoothDualModeActivator(
   params: InitBluetoothActivatorParams
-): Promise<DeviceBean> {
+): Promise<DeviceBean | TuyaError> {
   if (Platform.OS === 'ios') {
     return tuyaBLEActivator.initActivator(params);
   }
