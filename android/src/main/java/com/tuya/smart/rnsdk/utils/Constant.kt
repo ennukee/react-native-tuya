@@ -2,6 +2,7 @@ package com.tuya.smart.rnsdk.utils
 
 import com.facebook.react.bridge.Promise
 import com.thingclips.smart.sdk.api.IResultCallback
+import android.util.Log
 
 object Constant {
 
