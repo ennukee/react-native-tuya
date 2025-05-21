@@ -72,19 +72,19 @@ function unRegisterAllDevListeners() {
   }
   devListenerSubs = {};
 }
-function getDevice() {
+function getDevice(params) {
   if (Platform.OS === 'ios') {
     console.error('[tuya] getDevice is not supported on iOS');
     return Promise.resolve(null);
   }
-  return tuya$1.getDevice();
+  return tuya$1.getDevice(params);
 }
-function getDeviceData() {
+function getDeviceData(params) {
   if (Platform.OS === 'ios') {
     console.error('[tuya] getDevice is not supported on iOS');
     return Promise.resolve(null);
   }
-  return tuya$1.getDeviceData();
+  return tuya$1.getDeviceData(params);
 }
 function send(params) {
   return tuya$1.send(params);

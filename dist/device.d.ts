@@ -15,8 +15,8 @@ export declare function unRegisterAllDevListeners(): void;
 export declare type GetDeviceParams = {
     devId: string;
 };
-export declare function getDevice(): Promise<any>;
-export declare function getDeviceData(): Promise<any>;
+export declare function getDevice(params: GetDeviceParams): Promise<any>;
+export declare function getDeviceData(params: GetDeviceParams): Promise<any>;
 export declare type DeviceDpValue = boolean | number | string;
 export declare type DeviceDps = {
     [dpId: string]: DeviceDpValue;

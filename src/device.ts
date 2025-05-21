@@ -55,20 +55,20 @@ export type GetDeviceParams = {
   devId: string;
 };
 
-export function getDevice(): Promise<any> {
+export function getDevice(params: GetDeviceParams): Promise<any> {
   if (Platform.OS === 'ios') {
     console.error('[tuya] getDevice is not supported on iOS');
     return Promise.resolve(null);
   }
-  return tuya.getDevice();
+  return tuya.getDevice(params);
 }
 
-export function getDeviceData(): Promise<any> {
+export function getDeviceData(params: GetDeviceParams): Promise<any> {
   if (Platform.OS === 'ios') {
     console.error('[tuya] getDevice is not supported on iOS');
     return Promise.resolve(null);
   }
-  return tuya.getDeviceData();
+  return tuya.getDeviceData(params);
 }
 
 export type DeviceDpValue = boolean | number | string;
