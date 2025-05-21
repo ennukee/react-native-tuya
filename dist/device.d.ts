@@ -5,6 +5,9 @@ export declare type DeviceBean = {
     verSw: string;
     name: string;
     dps: DeviceDps;
+    uuid: string;
+    communicationId: string;
+    connectionStatus: string;
 };
 export declare type DevListenerParams = {
     devId: string;

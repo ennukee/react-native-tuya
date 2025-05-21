@@ -10,6 +10,9 @@ export type DeviceBean = {
   verSw: string;
   name: string;
   dps: DeviceDps;
+  uuid: string;
+  communicationId: string;
+  connectionStatus: string;
 };
 
 export type DevListenerParams = {
