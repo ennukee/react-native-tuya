@@ -75,6 +75,20 @@ function unRegisterAllDevListeners() {
   }
   devListenerSubs = {};
 }
+function getDevice() {
+  if (reactNative.Platform.OS === 'ios') {
+    console.error('[tuya] getDevice is not supported on iOS');
+    return Promise.resolve(null);
+  }
+  return tuya$1.getDevice();
+}
+function getDeviceData() {
+  if (reactNative.Platform.OS === 'ios') {
+    console.error('[tuya] getDevice is not supported on iOS');
+    return Promise.resolve(null);
+  }
+  return tuya$1.getDeviceData();
+}
 function send(params) {
   return tuya$1.send(params);
 }
@@ -278,6 +292,8 @@ exports.getAllTimerWithDeviceId = getAllTimerWithDeviceId;
 exports.getCurrentUser = getCurrentUser;
 exports.getCurrentWifi = getCurrentWifi;
 exports.getDataPointStat = getDataPointStat;
+exports.getDevice = getDevice;
+exports.getDeviceData = getDeviceData;
 exports.getEmailValidateCode = getEmailValidateCode;
 exports.getHomeDetail = getHomeDetail;
 exports.getOtaInfo = getOtaInfo;

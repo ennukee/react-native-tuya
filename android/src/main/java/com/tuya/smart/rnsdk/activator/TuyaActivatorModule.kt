@@ -47,7 +47,7 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
 
   @ReactMethod
   fun initBluetoothDualModeActivator(params: ReadableMap, promise: Promise) {
-    Log.d("TuyaActivatorModule", "[tuya] initBluetoothDualModeActivator called with params: $params")
+    Log.d("TuyaActivatorModule", "[tuya] initBluetoothDualModeActivator called with: $params")
     if (ReactParamsCheck.checkParams(arrayOf(HOMEID, SSID, PASSWORD), params)) {
       ThingHomeSdk.getBleOperator().startLeScan(60000, ScanType.SINGLE
       ) { bean ->
@@ -71,9 +71,12 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
                 multiModeActivatorBean.timeout = 180000;
                 multiModeActivatorBean.phase1Timeout = 60000;
 
+                Log.d("TuyaActivatorModule", "[tuya] attempting to start activator with information: ${multiModeActivatorBean.uuid}")
+
                 ThingHomeSdk.getActivator().newMultiModeActivator()
                   .startActivator(multiModeActivatorBean, object : IMultiModeActivatorListener {
                     override fun onSuccess(bean: DeviceBean) {
+                      Log.d("TuyaActivatorModule", "[tuya] activator listener success: $bean")
                       promise.resolve(TuyaReactUtils.parseToWritableMap(bean));
                     }
 
@@ -90,7 +93,13 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
               }
 
               override fun onFailure(s: String, s1: String) {
-                promise.reject(s, s1);
+                Log.d("TuyaActivatorModule", "[tuya] initBluetoothDualModeActivator failed to get token: $s, $s1")
+                val errorObj = object {
+                  val error = true
+                  val code = s
+                  val msg = s1
+                }
+                promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
               }
             })
         }

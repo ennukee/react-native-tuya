@@ -1,4 +1,4 @@
-import { NativeModules, EmitterSubscription } from 'react-native';
+import { NativeModules, EmitterSubscription, Platform } from 'react-native';
 import { addEvent, bridge, DEVLISTENER } from './bridgeUtils';
 import { TuyaError } from './generic';
 
@@ -49,6 +49,26 @@ export function unRegisterAllDevListeners() {
     tuya.unRegisterDevListener({ devId });
   }
   devListenerSubs = {};
+}
+
+export type GetDeviceParams = {
+  devId: string;
+};
+
+export function getDevice(): Promise<any> {
+  if (Platform.OS === 'ios') {
+    console.error('[tuya] getDevice is not supported on iOS');
+    return Promise.resolve(null);
+  }
+  return tuya.getDevice();
+}
+
+export function getDeviceData(): Promise<any> {
+  if (Platform.OS === 'ios') {
+    console.error('[tuya] getDevice is not supported on iOS');
+    return Promise.resolve(null);
+  }
+  return tuya.getDeviceData();
 }
 
 export type DeviceDpValue = boolean | number | string;
