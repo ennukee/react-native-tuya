@@ -1,3 +1,4 @@
+import { DeviceBean } from 'device';
 import { TuyaError } from './generic';
 export declare type CreateHomeParams = {
     name: string;
@@ -12,6 +13,7 @@ export declare type HomeDetailsResponse = {
     admin: boolean;
     background: string;
     dealStatus: 1 | 2;
+    deviceList: DeviceBean[];
     displayOrder: number;
     geoName: string;
     gid: number;

@@ -1,3 +1,4 @@
+import { DeviceBean } from 'device';
 import { TuyaError } from './generic';
 import { NativeModules, Platform } from 'react-native';
 
@@ -20,6 +21,7 @@ export type HomeDetailsResponse = {
   admin: boolean;
   background: string;
   dealStatus: 1 | 2; // 1 = unaccepted 2 = accepted
+  deviceList: DeviceBean[];
   displayOrder: number;
   geoName: string;
   gid: number;

@@ -8,6 +8,9 @@ export declare type DeviceBean = {
     uuid: string;
     communicationId: string;
     connectionStatus: string;
+    bluetooth: boolean;
+    cloudOnline: boolean;
+    isOnline: boolean;
 };
 export declare type DevListenerParams = {
     devId: string;
