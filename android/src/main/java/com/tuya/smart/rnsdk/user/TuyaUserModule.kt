@@ -335,7 +335,13 @@ class TuyaUserModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
             }
 
             override fun onError(code: String?, error: String?) {
-                promise.reject(code ?: "UNKNOWN_ERROR", error)
+                Log.d("TuyaUserModule", "[tuya] getLoginCallback onError called with code: $code, error: $error")
+                val errorObj = object {
+                    val error = true
+                    val code = code
+                    val msg = error
+                }
+                promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
             }
 
         }
@@ -351,7 +357,12 @@ class TuyaUserModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
 
             override fun onError(code: String?, error: String?) {
                 Log.d("TuyaUserModule", "[tuya] getRegisterCallback onError called with code: $code, error: $error")
-                promise.reject(code ?: "UNKNOWN_ERROR", error)
+                val errorObj = object {
+                    val error = true
+                    val code = code
+                    val msg = error
+                }
+                promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
             }
 
         }
