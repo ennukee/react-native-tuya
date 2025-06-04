@@ -388,7 +388,13 @@ class TuyaUserModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
             }
 
             override fun onError(code: String?, error: String?) {
-                promise.reject(code ?: "UNKNOWN_ERROR", error)
+                Log.d("TuyaUserModule", "[tuya] getValidateCodeCallback onError called with code: $code, error: $error")
+                val errorObj = object {
+                    val error = true
+                    val code = code
+                    val msg = error
+                }
+                promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
             }
         }
     }
