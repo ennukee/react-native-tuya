@@ -184,6 +184,7 @@ class TuyaUserModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
     /* 邮箱重置密码 */
     @ReactMethod
     fun resetEmailPassword(params: ReadableMap, promise: Promise) {
+        Log.d("TuyaUserModule", "[tuya] resetEmailPassword called with params: $params")
         if (ReactParamsCheck.checkParams(arrayOf(COUNTRYCODE, EMAIL, VALIDATECODE, NEWPASSWORD), params)) {
             ThingHomeSdk.getUserInstance().resetEmailPassword(
                     params.getString(COUNTRYCODE),
@@ -192,6 +193,8 @@ class TuyaUserModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
                     params.getString(NEWPASSWORD),
                     getResetPasswdCallback(promise)
             )
+        } else {
+            Log.d("TuyaUserModule", "[tuya] resetEmailPassword failed: params did not match expected keys")
         }
     }
 
@@ -375,7 +378,13 @@ class TuyaUserModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
             }
 
             override fun onError(code: String?, error: String?) {
-                promise.reject(code ?: "UNKNOWN_ERROR", error)
+                Log.d("TuyaUserModule", "[tuya] getResetPasswdCallback onError called with code: $code, error: $error")
+                val errorObj = object {
+                    val error = true
+                    val code = code
+                    val msg = error
+                }
+                promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
             }
 
         }
