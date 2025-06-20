@@ -26,6 +26,7 @@ export type GetHomeDetailParams = {
 export type DeviceDetailResponse = {
   homeId: number;
   isOnline: boolean;
+  cloudOnline: boolean;
   productId: string;
   devId: string;
   verSw: string;
@@ -33,6 +34,8 @@ export type DeviceDetailResponse = {
   dps: DeviceDps;
   homeDisplayOrder: number;
   roomId: number;
+  uuid: string;
+  communicationId: string;
 };
 export type GetHomeDetailResponse = {
   deviceList: DeviceDetailResponse[];
