@@ -12,15 +12,11 @@ export type CreateHomeParams = {
   rooms: string[];
 };
 
-export function createHome(params: CreateHomeParams): Promise<string | TuyaError> {
-  return tuya.createHome(params);
-}
-
 export type HomeDetailsResponse = {
   name: string;
   admin: boolean;
   background: string;
-  dealStatus: 1 | 2; // 1 = unaccepted 2 = accepted
+  dealStatus?: 1 | 2; // 1 = unaccepted 2 = accepted
   deviceList: DeviceBean[];
   displayOrder: number;
   geoName: string;
@@ -29,6 +25,10 @@ export type HomeDetailsResponse = {
   lat: number;
   lon: number;
 };
+
+export function createHome(params: CreateHomeParams): Promise<HomeDetailsResponse | TuyaError> {
+  return tuya.createHome(params);
+}
 
 export type QueryHomeListResponse = HomeDetailsResponse[];
 

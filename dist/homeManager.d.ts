@@ -7,12 +7,11 @@ export declare type CreateHomeParams = {
     lat: number;
     rooms: string[];
 };
-export declare function createHome(params: CreateHomeParams): Promise<string | TuyaError>;
 export declare type HomeDetailsResponse = {
     name: string;
     admin: boolean;
     background: string;
-    dealStatus: 1 | 2;
+    dealStatus?: 1 | 2;
     deviceList: DeviceBean[];
     displayOrder: number;
     geoName: string;
@@ -21,6 +20,7 @@ export declare type HomeDetailsResponse = {
     lat: number;
     lon: number;
 };
+export declare function createHome(params: CreateHomeParams): Promise<HomeDetailsResponse | TuyaError>;
 export declare type QueryHomeListResponse = HomeDetailsResponse[];
 export declare function queryHomeList(): Promise<QueryHomeListResponse | TuyaError>;
 export declare type JoinFamilyParams = {
