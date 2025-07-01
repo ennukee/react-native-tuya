@@ -90,7 +90,7 @@ RCT_EXPORT_METHOD(createHome:(NSDictionary *)params resolver:(RCTPromiseResolveB
   [self.homeManager addHomeWithName:name geoName:geoName rooms:rooms latitude:latValue longitude:lonValue success:^(long long result) {
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -132,7 +132,7 @@ RCT_EXPORT_METHOD(joinFamily:(NSDictionary *)params resolver:(RCTPromiseResolveB
   [newHome joinFamilyWithAccept:action.boolValue success:^(BOOL result) {
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 

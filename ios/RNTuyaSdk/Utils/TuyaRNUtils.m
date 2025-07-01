@@ -18,6 +18,18 @@
   }
 }
 
++ (void)rejecterV2WithError:(NSError *)error
+                  handler:(RCTPromiseResolveBlock)resolver {
+  if (resolver) {
+    NSDictionary *errorDict = @{
+      @"code": [NSString stringWithFormat:@"%ld", error.code],
+      @"msg": error.userInfo[NSLocalizedDescriptionKey] ?: @"",
+      @"error": @YES
+    };
+    resolver(errorDict);
+  }
+}
+
 + (void)resolverWithHandler:(RCTPromiseResolveBlock)resolver {
   if (resolver) {
     resolver(@"success");

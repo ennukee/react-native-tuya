@@ -39,7 +39,7 @@ RCT_EXPORT_METHOD(updateRoom:(NSDictionary *)params resolver:(RCTPromiseResolveB
   [self.smartRoom updateRoomName:name success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
   
 }
@@ -52,7 +52,7 @@ RCT_EXPORT_METHOD(addDevice:(NSDictionary *)params resolver:(RCTPromiseResolveBl
   [self.smartRoom addDeviceWithDeviceId:deviceId success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -66,7 +66,7 @@ RCT_EXPORT_METHOD(removeDevice:(NSDictionary *)params resolver:(RCTPromiseResolv
   [self.smartRoom removeDeviceWithDeviceId:deviceId success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
   
 }
@@ -80,7 +80,7 @@ RCT_EXPORT_METHOD(removeGroup:(NSDictionary *)params resolver:(RCTPromiseResolve
   [self.smartRoom removeGroupWithGroupId:groupId success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
   
 }

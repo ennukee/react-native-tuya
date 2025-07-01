@@ -54,7 +54,7 @@ RCT_EXPORT_METHOD(getHomeDetail:(NSDictionary *)params resolver:(RCTPromiseResol
     }
 
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -90,7 +90,7 @@ RCT_EXPORT_METHOD(updateHome:(NSDictionary *)params resolver:(RCTPromiseResolveB
                        success:^{
                          [TuyaRNUtils resolverWithHandler:resolver];
                        } failure:^(NSError *error) {
-                         [TuyaRNUtils rejecterWithError:error handler:rejecter];
+                         [TuyaRNUtils rejecterV2WithError:error handler:resolver];
                        }];
 }
 
@@ -106,7 +106,7 @@ RCT_EXPORT_METHOD(dismissHome:(NSDictionary *)params resolver:(RCTPromiseResolve
   [self.currentHome dismissHomeWithSuccess:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -123,7 +123,7 @@ RCT_EXPORT_METHOD(addRoom:(NSDictionary *)params resolver:(RCTPromiseResolveBloc
   [self.currentHome addHomeRoomWithName:name success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -141,7 +141,7 @@ RCT_EXPORT_METHOD(removeRoom:(NSDictionary *)params resolver:(RCTPromiseResolveB
   [self.currentHome removeHomeRoomWithRoomId:roomId.longLongValue success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 
 }
@@ -163,7 +163,7 @@ RCT_EXPORT_METHOD(sortRoom:(NSDictionary *)params resolver:(RCTPromiseResolveBlo
   [self.currentHome sortRoomList:list success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -195,7 +195,7 @@ RCT_EXPORT_METHOD(queryRoomList:(NSDictionary *)params resolver:(RCTPromiseResol
       resolver(list);
     }
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 

@@ -70,7 +70,7 @@ RCT_EXPORT_METHOD(send:(NSDictionary *)params resolver:(RCTPromiseResolveBlock)r
   [self.smartDevice publishDps:command success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -100,7 +100,7 @@ RCT_EXPORT_METHOD(renameDevice:(NSDictionary *)params resolver:(RCTPromiseResolv
   [self.smartDevice updateName:deviceName success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -112,7 +112,7 @@ RCT_EXPORT_METHOD(renameDevice:(NSDictionary *)params resolver:(RCTPromiseResolv
 //        resolver(@"syncWithCloud success");
 //      }
 //    } failure:^(NSError *error) {
-//        [TuyaRNUtils rejecterWithError:error handler:rejecter];
+//        [TuyaRNUtils rejecterV2WithError:error handler:resolver];
 //    }];
 //}
 
@@ -131,7 +131,7 @@ RCT_EXPORT_METHOD(removeDevice:(NSDictionary *)params resolver:(RCTPromiseResolv
   [self.smartDevice remove:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -144,7 +144,7 @@ RCT_EXPORT_METHOD(removeDevice:(NSDictionary *)params resolver:(RCTPromiseResolv
 //        resolver(@"rename success");
 //      }
 //    } failure:^(NSError *error) {
-//        [TuyaRNUtils rejecterWithError:error handler:rejecter];
+//        [TuyaRNUtils rejecterV2WithError:error handler:resolver];
 //    }];
 //}
 
@@ -161,7 +161,7 @@ RCT_EXPORT_METHOD(startOta:(NSDictionary *)params resolver:(RCTPromiseResolveBlo
           resolver(@"success");
         }
     } failure:^(NSError *error) {
-        [TuyaRNUtils rejecterWithError:error handler:rejecter];
+        [TuyaRNUtils rejecterV2WithError:error handler:resolver];
     }];
 }
 
@@ -182,7 +182,7 @@ RCT_EXPORT_METHOD(getOtaInfo:(NSDictionary *)params resolver:(RCTPromiseResolveB
 
         NSLog(@"getFirmwareUpgradeInfo success");
     } failure:^(NSError *error) {
-        [TuyaRNUtils rejecterWithError:error handler:rejecter];
+        [TuyaRNUtils rejecterV2WithError:error handler:resolver];
     }];
 
 }

@@ -38,7 +38,7 @@ RCT_EXPORT_METHOD(getFeedbackMsg:(NSDictionary *)params resolver:(RCTPromiseReso
       resolver(res);
     }
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
   
 }
@@ -60,7 +60,7 @@ RCT_EXPORT_METHOD(getFeedbackType:(RCTPromiseResolveBlock)resolver rejecter:(RCT
           resolver(res);
         }
     } failure:^(NSError *error) {
-        [TuyaRNUtils rejecterWithError:error handler:rejecter];
+        [TuyaRNUtils rejecterV2WithError:error handler:resolver];
     }];
 }
 
@@ -74,7 +74,7 @@ RCT_EXPORT_METHOD(addMsg:(NSDictionary *)params resolver:(RCTPromiseResolveBlock
         resolver(@"success");
       }
   } failure:^(NSError *error) {
-      [TuyaRNUtils rejecterWithError:error handler:rejecter];
+      [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -93,7 +93,7 @@ RCT_EXPORT_METHOD(getFeedbackList:(RCTPromiseResolveBlock)resolver rejecter:(RCT
           resolver(res);
         }
     } failure:^(NSError *error) {
-        [TuyaRNUtils rejecterWithError:error handler:rejecter];
+        [TuyaRNUtils rejecterV2WithError:error handler:resolver];
     }];
 }
 

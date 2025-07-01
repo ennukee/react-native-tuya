@@ -55,7 +55,7 @@ RCT_EXPORT_METHOD(initActivator:(NSDictionary *)params resolver:(RCTPromiseResol
       // Wait for activation
     } failure:^ {
       if (activatorInstance.promiseRejectBlock) {
-        [TuyaRNUtils rejecterWithError:nil handler:rejecter];
+        [TuyaRNUtils rejecterV2WithError:nil handler:resolver];
       }
       return;
     }];
@@ -69,7 +69,7 @@ RCT_EXPORT_METHOD(initActivator:(NSDictionary *)params resolver:(RCTPromiseResol
   }
   if (error) {
     if (activatorInstance.promiseRejectBlock) {
-      [TuyaRNUtils rejecterWithError:error handler:activatorInstance.promiseRejectBlock];
+      [TuyaRNUtils rejecterV2WithError:error handler:activatorInstance.promiseResolveBlock];
     }
   }
 

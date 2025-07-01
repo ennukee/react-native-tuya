@@ -44,7 +44,7 @@ RCT_EXPORT_METHOD(getMessageList:(RCTPromiseResolveBlock)resolver rejecter:(RCTP
           resolver(res);
         }
     } failure:^(NSError *error) {
-        [TuyaRNUtils rejecterWithError:error handler:rejecter];
+        [TuyaRNUtils rejecterV2WithError:error handler:resolver];
     }];
 }
 
@@ -58,7 +58,7 @@ RCT_EXPORT_METHOD(deleteMessage:(NSDictionary *)params resolver:(RCTPromiseResol
       resolver(@"seccess");
     }
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -71,7 +71,7 @@ RCT_EXPORT_METHOD(getMessageMaxTime:(RCTPromiseResolveBlock)resolver rejecter:(R
       resolver(@(result));
     }
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 

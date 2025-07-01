@@ -52,7 +52,7 @@ RCT_EXPORT_METHOD(upgradeVersion:(NSDictionary *)params resolver:(RCTPromiseReso
   [[ThingSmartSDK sharedInstance] upgradeVersion:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 
 }
@@ -77,7 +77,7 @@ RCT_EXPORT_METHOD(getValidateCode:(NSDictionary *)params resolver:(RCTPromiseRes
   [[ThingSmartUser sharedInstance] sendVerifyCode:countryCode phoneNumber:phoneNumber type:aType success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -99,7 +99,7 @@ RCT_EXPORT_METHOD(loginWithValidateCode:(NSDictionary *)params resolver:(RCTProm
   [[ThingSmartUser sharedInstance] login:countryCode phoneNumber:phoneNumber code:validateCode success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 
 }
@@ -129,7 +129,7 @@ RCT_EXPORT_METHOD(registerAccountWithPhone:(NSDictionary *)params resolver:(RCTP
   [[ThingSmartUser sharedInstance] registerByPhone:countryCode phoneNumber:phoneNumber password:password code:validateCode success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 
 }
@@ -152,7 +152,7 @@ RCT_EXPORT_METHOD(loginWithPhonePassword:(NSDictionary *)params resolver:(RCTPro
   [[ThingSmartUser sharedInstance] loginByPhone:countryCode phoneNumber:phoneNumber password:password success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 
 }
@@ -177,7 +177,7 @@ RCT_EXPORT_METHOD(resetPhonePassword:(NSDictionary *)params resolver:(RCTPromise
   [[ThingSmartUser sharedInstance] resetPasswordByPhone:countryCode phoneNumber:phoneNumber newPassword:password code:validateCode success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 
 }
@@ -194,7 +194,7 @@ RCT_EXPORT_METHOD(getRegisterEmailValidateCode:(NSDictionary *)params resolver:(
   [[ThingSmartUser sharedInstance] sendVerifyCodeByRegisterEmail:countryCode email:email success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 
 }
@@ -214,7 +214,7 @@ RCT_EXPORT_METHOD(registerAccountWithEmail:(NSDictionary *)params resolver:(RCTP
   [[ThingSmartUser sharedInstance] registerByEmail:countryCode email:email password:password code:validateCode success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 
 }
@@ -233,7 +233,7 @@ RCT_EXPORT_METHOD(loginWithEmail:(NSDictionary *)params resolver:(RCTPromiseReso
   [[ThingSmartUser sharedInstance] loginByEmail:countryCode email:email password:password success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 
 }
@@ -251,7 +251,7 @@ RCT_EXPORT_METHOD(getEmailValidateCode:(NSDictionary *)params resolver:(RCTPromi
   [[ThingSmartUser sharedInstance] sendVerifyCodeByEmail:countryCode email:email success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 
 }
@@ -271,7 +271,7 @@ RCT_EXPORT_METHOD(resetEmailPassword:(NSDictionary *)params resolver:(RCTPromise
   [[ThingSmartUser sharedInstance] resetPasswordByEmail:countryCode email:email newPassword:password code:validateCode success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -280,7 +280,7 @@ RCT_EXPORT_METHOD(logout:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRe
   [[ThingSmartUser sharedInstance] loginOut:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -289,7 +289,7 @@ RCT_EXPORT_METHOD(cancelAccount:(RCTPromiseResolveBlock)resolver rejecter:(RCTPr
   [[ThingSmartUser sharedInstance] cancelAccount:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 
 }
@@ -308,7 +308,7 @@ RCT_EXPORT_METHOD(registerAccountWithUid:(NSDictionary *)params resolver:(RCTPro
   [[ThingSmartUser sharedInstance] registerByUid:uid password:password countryCode:countryCode success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 
 }
@@ -329,7 +329,7 @@ RCT_EXPORT_METHOD(loginWithUid:(NSDictionary *)params resolver:(RCTPromiseResolv
   [[ThingSmartUser sharedInstance] loginByUid:uid password:password countryCode:countryCode success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 
 }
@@ -349,7 +349,7 @@ RCT_EXPORT_METHOD(loginOrRegisterWithUid:(NSDictionary *)params resolver:(RCTPro
   [[ThingSmartUser sharedInstance] loginOrRegisterWithCountryCode:countryCode uid:uid password:password success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -367,7 +367,7 @@ RCT_EXPORT_METHOD(loginByTwitter:(NSDictionary *)params resolver:(RCTPromiseReso
   [[ThingSmartUser sharedInstance] loginByTwitter:countryCode key:key secret:secret success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -385,7 +385,7 @@ RCT_EXPORT_METHOD(loginByQQ:(NSDictionary *)params resolver:(RCTPromiseResolveBl
   [[ThingSmartUser sharedInstance] loginByQQ:countryCode userId:userId accessToken:accountToken success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -401,7 +401,7 @@ RCT_EXPORT_METHOD(loginByWechat:(NSDictionary *)params resolver:(RCTPromiseResol
   [[ThingSmartUser sharedInstance] loginByWechat:countryCode code:code success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 
 }
@@ -418,7 +418,7 @@ RCT_EXPORT_METHOD(loginByFacebook:(NSDictionary *)params resolver:(RCTPromiseRes
   [[ThingSmartUser sharedInstance] loginByFacebook:countryCode token:code success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -446,14 +446,14 @@ RCT_EXPORT_METHOD(uploadUserAvatar:(NSDictionary *)params resolver:(RCTPromiseRe
   UIImage *image = params[kTuyaRNUserModuleImageFile];
 
   if (image == nil || [image isKindOfClass:[UIImage class]]) {
-    [TuyaRNUtils rejecterWithError:[NSError thingsdk_errorWithCodeString:@"999" errorMsg:@"error image info"] handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:[NSError thingsdk_errorWithCodeString:@"999" errorMsg:@"error image info"] handler:resolver];
     return;
   }
 
   [[ThingSmartUser sharedInstance] updateHeadIcon:image success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -466,7 +466,7 @@ RCT_EXPORT_METHOD(setTempUnit:(NSDictionary *)params resolver:(RCTPromiseResolve
       resolver(@"success");
     }
   } else {
-     [TuyaRNUtils rejecterWithError:[NSError thingsdk_errorWithCodeString:@"999" errorMsg:@"error params"] handler:rejecter];
+     [TuyaRNUtils rejecterV2WithError:[NSError thingsdk_errorWithCodeString:@"999" errorMsg:@"error params"] handler:resolver];
   }
 }
 

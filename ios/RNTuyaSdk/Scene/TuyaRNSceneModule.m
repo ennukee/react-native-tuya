@@ -40,7 +40,7 @@ RCT_EXPORT_METHOD(getDeviceTaskOperationList:(NSDictionary *)params resolver:(RC
       resolver(res);
     }
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -58,7 +58,7 @@ RCT_EXPORT_METHOD(getSceneList:(NSDictionary *)params resolver:(RCTPromiseResolv
           resolver(res);
         }
     } failure:^(NSError *error) {
-        [TuyaRNUtils rejecterWithError:error handler:rejecter];
+        [TuyaRNUtils rejecterV2WithError:error handler:resolver];
     }];
 }
 
@@ -76,7 +76,7 @@ RCT_EXPORT_METHOD(getConditionList:(NSDictionary *)params resolver:(RCTPromiseRe
           resolver(res);
         }
     } failure:^(NSError *error) {
-        [TuyaRNUtils rejecterWithError:error handler:rejecter];
+        [TuyaRNUtils rejecterV2WithError:error handler:resolver];
     }];
 }
 
@@ -93,7 +93,7 @@ RCT_EXPORT_METHOD(getConditionDevList:(NSDictionary *)params resolver:(RCTPromis
           resolver(res);
         }
     } failure:^(NSError *error) {
-        [TuyaRNUtils rejecterWithError:error handler:rejecter];
+        [TuyaRNUtils rejecterV2WithError:error handler:resolver];
     }];
 }
 
@@ -123,7 +123,7 @@ RCT_EXPORT_METHOD(getDeviceConditionOperationList:(NSDictionary *)params resolve
           resolver(res);
         }
     } failure:^(NSError *error) {
-      [TuyaRNUtils rejecterWithError:error handler:rejecter];
+      [TuyaRNUtils rejecterV2WithError:error handler:resolver];
     }];
 }
 
@@ -184,7 +184,7 @@ RCT_EXPORT_METHOD(createAutoScene:(NSDictionary *)params resolver:(RCTPromiseRes
       resolver([sceneModel yy_modelToJSONObject]);
     }
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -198,7 +198,7 @@ RCT_EXPORT_METHOD(deleteScene:(NSDictionary *)params resolver:(RCTPromiseResolve
       resolver(@"delete success");
     }
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -213,7 +213,7 @@ RCT_EXPORT_METHOD(executeScene:(NSDictionary *)params resolver:(RCTPromiseResolv
       resolver(@"execute success");
     }
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -227,7 +227,7 @@ RCT_EXPORT_METHOD(enableScene:(NSDictionary *)params resolver:(RCTPromiseResolve
       resolver(@"enableSmartScene success");
     }
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -241,7 +241,7 @@ RCT_EXPORT_METHOD(disableScene:(NSDictionary *)params resolver:(RCTPromiseResolv
       resolver(@"disableSmartScene success");
     }
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -267,7 +267,7 @@ RCT_EXPORT_METHOD(createScene:(NSDictionary *)params resolver:(RCTPromiseResolve
       resolver([sceneModel yy_modelToJSONObject]);
     }
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -295,7 +295,7 @@ RCT_EXPORT_METHOD(modifyScene:(NSDictionary *)params resolver:(RCTPromiseResolve
       resolver(@"success");
     }
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
   
 }
@@ -361,7 +361,7 @@ RCT_EXPORT_METHOD(modifyAutoScene:(NSDictionary *)params resolver:(RCTPromiseRes
       resolver(@"success");
     }
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
   
 }
@@ -381,7 +381,7 @@ RCT_EXPORT_METHOD(getCityListByCountryCode:(NSDictionary *)params resolver:(RCTP
     }
     
   } failure:^(NSError *error) {
-      [TuyaRNUtils rejecterWithError:error handler:rejecter];
+      [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -393,7 +393,7 @@ RCT_EXPORT_METHOD(getCityByCityIndex:(NSDictionary *)params resolver:(RCTPromise
           resolver([model yy_modelToJSONObject]);
         }
     } failure:^(NSError *error) {
-      [TuyaRNUtils rejecterWithError:error handler:rejecter];
+      [TuyaRNUtils rejecterV2WithError:error handler:resolver];
       
     }];
 }
@@ -414,7 +414,7 @@ RCT_EXPORT_METHOD(getTaskDevList:(NSDictionary *)params resolver:(RCTPromiseReso
         resolver(res);
       }
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -426,7 +426,7 @@ RCT_EXPORT_METHOD(sortSceneList:(NSDictionary *)params resolver:(RCTPromiseResol
       resolver(@"sort success");
     }
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 

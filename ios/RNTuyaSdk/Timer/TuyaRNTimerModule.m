@@ -38,7 +38,7 @@ RCT_EXPORT_METHOD(addTimerWithTask:(NSDictionary *)params resolver:(RCTPromiseRe
       resolver(@"addTimerWithTask success");
     }
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -59,7 +59,7 @@ RCT_EXPORT_METHOD(getTimerTaskStatusWithDeviceId:(NSDictionary *)params resolver
         resolver(res);
       }
     } failure:^(NSError *error) {
-      [TuyaRNUtils rejecterWithError:error handler:rejecter];
+      [TuyaRNUtils rejecterV2WithError:error handler:resolver];
     }];
 }
 
@@ -72,7 +72,7 @@ RCT_EXPORT_METHOD(updateTimerTaskStatusWithTask:(NSDictionary *)params resolver:
         resolver(@"success");
       }
     } failure:^(NSError *error) {
-      [TuyaRNUtils rejecterWithError:error handler:rejecter];
+      [TuyaRNUtils rejecterV2WithError:error handler:resolver];
     }];
 }
 
@@ -88,7 +88,7 @@ RCT_EXPORT_METHOD(updateTimerStatusWithTask:(NSDictionary *)params resolver:(RCT
         resolver(@"success");
       }
     } failure:^(NSError *error) {
-      [TuyaRNUtils rejecterWithError:error handler:rejecter];
+      [TuyaRNUtils rejecterV2WithError:error handler:resolver];
     }];
 }
 
@@ -102,7 +102,7 @@ RCT_EXPORT_METHOD(removeTimerWithTask:(NSDictionary *)params resolver:(RCTPromis
         resolver(@"success");
       }
     } failure:^(NSError *error) {
-      [TuyaRNUtils rejecterWithError:error handler:rejecter];
+      [TuyaRNUtils rejecterV2WithError:error handler:resolver];
     }];
 }
 
@@ -116,7 +116,7 @@ RCT_EXPORT_METHOD(updateTimerWithTask:(NSDictionary *)params resolver:(RCTPromis
           resolver(@"success");
         }
     } failure:^(NSError *error) {
-      [TuyaRNUtils rejecterWithError:error handler:rejecter];
+      [TuyaRNUtils rejecterV2WithError:error handler:resolver];
     }];
 }
 
@@ -137,7 +137,7 @@ RCT_EXPORT_METHOD(getTimerWithTask:(NSDictionary *)params resolver:(RCTPromiseRe
           resolver(res);
         }
     } failure:^(NSError *error) {
-      [TuyaRNUtils rejecterWithError:error handler:rejecter];
+      [TuyaRNUtils rejecterV2WithError:error handler:resolver];
     }];
 }
 
@@ -175,7 +175,7 @@ RCT_EXPORT_METHOD(getAllTimerWithDeviceId:(NSDictionary *)params resolver:(RCTPr
           resolver(res);
         }
     } failure:^(NSError *error) {
-      [TuyaRNUtils rejecterWithError:error handler:rejecter];
+      [TuyaRNUtils rejecterV2WithError:error handler:resolver];
     }];
 }
 

@@ -39,7 +39,7 @@ RCT_EXPORT_METHOD(addShareWithHomeId:(NSDictionary *)params resolver:(RCTPromise
             resolver([model yy_modelToJSONObject]);
           }
       } failure:^(NSError *error) {
-          [TuyaRNUtils rejecterWithError:error handler:rejecter];
+          [TuyaRNUtils rejecterV2WithError:error handler:resolver];
       }];
 }
 
@@ -53,7 +53,7 @@ RCT_EXPORT_METHOD(addShareWithMemberId:(NSDictionary *)params resolver:(RCTPromi
           resolver(@"success");
         }
     } failure:^(NSError *error) {
-      [TuyaRNUtils rejecterWithError:error handler:rejecter];
+      [TuyaRNUtils rejecterV2WithError:error handler:resolver];
     }];
 }
 
@@ -66,7 +66,7 @@ RCT_EXPORT_METHOD(addShareWithMemberId:(NSDictionary *)params resolver:(RCTPromi
 //          resolver(@"removeShareMember success");
 //        }
 //    } failure:^(NSError *error) {
-//        [TuyaRNUtils rejecterWithError:error handler:rejecter];
+//        [TuyaRNUtils rejecterV2WithError:error handler:resolver];
 //    }];
 //}
 
@@ -88,7 +88,7 @@ RCT_EXPORT_METHOD(queryUserShareList:(NSDictionary *)params resolver:(RCTPromise
           resolver(res);
         }
      } failure:^(NSError *error) {
-        [TuyaRNUtils rejecterWithError:error handler:rejecter];
+        [TuyaRNUtils rejecterV2WithError:error handler:resolver];
      }];
 }
 
@@ -106,7 +106,7 @@ RCT_EXPORT_METHOD(queryShareReceivedUserList:(RCTPromiseResolveBlock)resolver re
         resolver(res);
       }
   } failure:^(NSError *error) {
-      [TuyaRNUtils rejecterWithError:error handler:rejecter];
+      [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 
 }
@@ -125,7 +125,7 @@ RCT_EXPORT_METHOD(queryDevShareUserList:(NSDictionary *)params resolver:(RCTProm
       resolver(res);
     }
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -139,7 +139,7 @@ RCT_EXPORT_METHOD(queryShareDevFromInfo:(NSDictionary *)params resolver:(RCTProm
         resolver([model yy_modelToJSONObject]);
       }
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -165,7 +165,7 @@ RCT_EXPORT_METHOD(getUserShareInfo:(NSDictionary *)params resolver:(RCTPromiseRe
         resolver(dic);
       }
     } failure:^(NSError *error) {
-      [TuyaRNUtils rejecterWithError:error handler:rejecter];
+      [TuyaRNUtils rejecterV2WithError:error handler:resolver];
     }];
 }
 
@@ -179,7 +179,7 @@ RCT_EXPORT_METHOD(getReceivedShareInfo:(NSDictionary *)params resolver:(RCTPromi
         resolver([model yy_modelToJSONObject]);
       }
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -194,7 +194,7 @@ RCT_EXPORT_METHOD(removeUserShare:(NSDictionary *)params resolver:(RCTPromiseRes
           resolver(@"success");
         }
     } failure:^(NSError *error) {
-        [TuyaRNUtils rejecterWithError:error handler:rejecter];
+        [TuyaRNUtils rejecterV2WithError:error handler:resolver];
     }];
 
 }
@@ -211,7 +211,7 @@ RCT_EXPORT_METHOD(removeReceivedUserShare:(NSDictionary *)params resolver:(RCTPr
         resolver(@"success");
       }
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -226,7 +226,7 @@ RCT_EXPORT_METHOD(disableDevShare:(NSDictionary *)params resolver:(RCTPromiseRes
         resolver(@"success");
       }
   } failure:^(NSError *error) {
-      [TuyaRNUtils rejecterWithError:error handler:rejecter];
+      [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
   
 }
@@ -241,7 +241,7 @@ RCT_EXPORT_METHOD(removeReceivedDevShare:(NSDictionary *)params resolver:(RCTPro
           resolver(@"success");
         }
     } failure:^(NSError *error) {
-        [TuyaRNUtils rejecterWithError:error handler:rejecter];
+        [TuyaRNUtils rejecterV2WithError:error handler:resolver];
     }];
 }
 
@@ -256,7 +256,7 @@ RCT_EXPORT_METHOD(renameShareNickname:(NSDictionary *)params resolver:(RCTPromis
           resolver(@"success");
         }
     } failure:^(NSError *error) {
-        [TuyaRNUtils rejecterWithError:error handler:rejecter];
+        [TuyaRNUtils rejecterV2WithError:error handler:resolver];
     }];
 }
 
@@ -270,7 +270,7 @@ RCT_EXPORT_METHOD(renameReceivedShareNickname:(NSDictionary *)params resolver:(R
           resolver(@"success");
         }
     } failure:^(NSError *error) {
-        [TuyaRNUtils rejecterWithError:error handler:rejecter];
+        [TuyaRNUtils rejecterV2WithError:error handler:resolver];
     }];
 
 }

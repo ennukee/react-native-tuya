@@ -63,7 +63,7 @@ RCT_EXPORT_METHOD(addMember:(NSDictionary *)params resolver:(RCTPromiseResolveBl
       resolver(dict);
     }
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -79,7 +79,7 @@ RCT_EXPORT_METHOD(removeMember:(NSDictionary *)params resolver:(RCTPromiseResolv
   [self.homeMember removeHomeMemberWithMemberId:memberId.longLongValue success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -102,7 +102,7 @@ RCT_EXPORT_METHOD(updateMember:(NSDictionary *)params resolver:(RCTPromiseResolv
   [self.homeMember updateHomeMemberInfoWithMemberRequestModel:requestModel success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 }
 
@@ -131,7 +131,7 @@ RCT_EXPORT_METHOD(queryMemberList:(NSDictionary *)params resolver:(RCTPromiseRes
       resolver(memberDicList);
     }
   } failure:^(NSError *error) {
-    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
 
 }

@@ -33,7 +33,7 @@ RCT_EXPORT_METHOD(createGroup:(NSDictionary *)params resolver:(RCTPromiseResolve
             resolver([group yy_modelToJSONObject]);
           }
       } failure:^(NSError *error) {
-          [TuyaRNUtils rejecterWithError:error handler:rejecter];
+          [TuyaRNUtils rejecterV2WithError:error handler:resolver];
       }];
 }
 
@@ -50,7 +50,7 @@ RCT_EXPORT_METHOD(queryDeviceListToAddGroup:(NSDictionary *)params resolver:(RCT
         resolver(res);
       }
     } failure:^(NSError *error) {
-        [TuyaRNUtils rejecterWithError:error handler:rejecter];
+        [TuyaRNUtils rejecterV2WithError:error handler:resolver];
     }];
 }
 
@@ -62,7 +62,7 @@ RCT_EXPORT_METHOD(updateGroupName:(NSDictionary *)params resolver:(RCTPromiseRes
           resolver(@"success");
         }
     } failure:^(NSError *error) {
-        [TuyaRNUtils rejecterWithError:error handler:rejecter];
+        [TuyaRNUtils rejecterV2WithError:error handler:resolver];
     }];
 }
 
@@ -74,7 +74,7 @@ RCT_EXPORT_METHOD(dismissGroup:(NSDictionary *)params resolver:(RCTPromiseResolv
           resolver(@"success");
         }
     } failure:^(NSError *error) {
-        [TuyaRNUtils rejecterWithError:error handler:rejecter];
+        [TuyaRNUtils rejecterV2WithError:error handler:resolver];
     }];
 }
 
@@ -88,7 +88,7 @@ RCT_EXPORT_METHOD(publishDps:(NSDictionary *)params resolver:(RCTPromiseResolveB
           resolver(@"success");
         }
     } failure:^(NSError *error) {
-        [TuyaRNUtils rejecterWithError:error handler:rejecter];
+        [TuyaRNUtils rejecterV2WithError:error handler:resolver];
     }];
   
 }
