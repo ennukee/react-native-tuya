@@ -17,6 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)rejecterWithError:(NSError *)error
                   handler:(RCTPromiseRejectBlock)rejecter;
 
++ (void)rejecterV2WithError:(NSError *)error
+                  handler:(RCTPromiseResolveBlock)resolver;
+
 + (void)resolverWithHandler:(RCTPromiseResolveBlock)resolver;
 
 @end
