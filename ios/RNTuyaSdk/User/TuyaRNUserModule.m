@@ -21,6 +21,7 @@
 #define kTuyaRNUserModuleNewPassword @"newPassword"
 #define kTuyaRNUserModuleEmail @"email"
 #define kTuyaRNUserModuleUid @"uid"
+#define kTuyaRNUserModuleNickname @"nickname"
 
 
 #define kTuyaRNUserModuleTwitterKey @"key"
@@ -278,6 +279,17 @@ RCT_EXPORT_METHOD(resetEmailPassword:(NSDictionary *)params resolver:(RCTPromise
 RCT_EXPORT_METHOD(logout:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
 
   [[ThingSmartUser sharedInstance] loginOut:^{
+    [TuyaRNUtils resolverWithHandler:resolver];
+  } failure:^(NSError *error) {
+    [TuyaRNUtils rejecterV2WithError:error handler:resolver];
+  }];
+}
+
+RCT_EXPORT_METHOD(loginWithTouristUser:(NSDictionary *)params resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
+  NSString *countryCode = params[kTuyaRNUserModuleCountryCode];
+  NSString *nickname = params[kTuyaRNUserModuleNickname];
+
+  [[ThingSmartUser sharedInstance] registerAnonymousWithCountryCode:countryCode userName:nickname success:^{
     [TuyaRNUtils resolverWithHandler:resolver];
   } failure:^(NSError *error) {
     [TuyaRNUtils rejecterV2WithError:error handler:resolver];

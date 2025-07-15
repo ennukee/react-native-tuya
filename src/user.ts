@@ -1,5 +1,5 @@
 import { TuyaError } from './generic';
-import { NativeModules, Platform } from 'react-native';
+import { NativeModules } from 'react-native';
 
 const tuya = NativeModules.TuyaUserModule;
 
@@ -87,9 +87,5 @@ export type GuestAccountLoginParams = {
 };
 
 export function loginWithGuest(params: GuestAccountLoginParams): Promise<any> {
-  if (Platform.OS === 'ios') {
-    // TODO: Implement iOS guest login code
-    return Promise.resolve(null);
-  }
   return tuya.loginWithTouristUser(params);
 }

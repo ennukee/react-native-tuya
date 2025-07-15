@@ -264,10 +264,6 @@ function cancelAccount() {
   return tuya$8.cancelAccount();
 }
 function loginWithGuest(params) {
-  if (Platform.OS === 'ios') {
-    // TODO: Implement iOS guest login code
-    return Promise.resolve(null);
-  }
   return tuya$8.loginWithTouristUser(params);
 }
 
