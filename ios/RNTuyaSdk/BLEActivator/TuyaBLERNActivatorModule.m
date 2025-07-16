@@ -55,7 +55,7 @@ RCT_EXPORT_METHOD(initActivator:(NSDictionary *)params resolver:(RCTPromiseResol
       // Wait for activation
     } failure:^ {
       if (activatorInstance.promiseRejectBlock) {
-        [TuyaRNUtils rejecterV2WithError:nil handler:resolver];
+        resolver([NSString stringWithFormat:@"Error activating device with ID: %@", deviceId], @"Activation failed", nil);
       }
       return;
     }];
