@@ -36,4 +36,10 @@
   }
 }
 
++ (void)resolverWithHandlerandData:(RCTPromiseResolveBlock)resolver data:(id)data {
+  if (resolver) {
+    resolver(data);
+  }
+}
+
 @end

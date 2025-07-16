@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)resolverWithHandler:(RCTPromiseResolveBlock)resolver;
 
++ (void)resolverWithHandlerandData:(RCTPromiseResolveBlock)resolver data:(id)data;
+
 @end
 
 NS_ASSUME_NONNULL_END
