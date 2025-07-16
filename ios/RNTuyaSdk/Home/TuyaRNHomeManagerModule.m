@@ -88,7 +88,7 @@ RCT_EXPORT_METHOD(createHome:(NSDictionary *)params resolver:(RCTPromiseResolveB
   double lonValue = lon.doubleValue;
   
   [self.homeManager addHomeWithName:name geoName:geoName rooms:rooms latitude:latValue longitude:lonValue success:^(long long result) {
-    [TuyaRNUtils resolverWithHandlerandData:resolver data:@(result)];
+    resolver(@{@"homeId": @(result)});
   } failure:^(NSError *error) {
     [TuyaRNUtils rejecterV2WithError:error handler:resolver];
   }];
