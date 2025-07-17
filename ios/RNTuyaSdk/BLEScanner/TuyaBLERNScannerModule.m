@@ -30,14 +30,17 @@ RCT_EXPORT_MODULE(TuyaBLEScannerModule)
 
 RCT_EXPORT_METHOD(startBluetoothScan:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
   [ThingSmartBLEManager sharedInstance].delegate = self;
+  self.promiseResolveBlock = resolver;
+  self.promiseRejectBlock = rejecter;
+
   [[ThingSmartBLEManager sharedInstance] startListening:YES];
 }
 
 - (void)didDiscoveryDeviceWithDeviceInfo:(ThingBLEAdvModel *)deviceInfo {
-    if (resolver) {
-      [[ThingSmartBLEManager sharedInstance] stopListening:YES];
-      resolver([deviceInfo yy_modelToJSONObject]);
-    }
+  if (self.promiseResolveBlock) {
+    [[ThingSmartBLEManager sharedInstance] stopListening:YES];
+    self.promiseResolveBlock([deviceInfo yy_modelToJSONObject]);
   }
+}
 
 @end
