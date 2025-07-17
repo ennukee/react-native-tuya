@@ -26,13 +26,6 @@ export type InitActivatorParams = {
   type: ActivatorType;
 };
 
-export interface InitBluetoothActivatorParams {
-  deviceId?: string;
-  homeId: number;
-  ssid: string;
-  password: string;
-}
-
 export function initActivator(
   params: InitActivatorParams
 ): Promise<DeviceDetailResponse | TuyaError> {
@@ -48,6 +41,14 @@ export function startBluetoothScan() {
     return tuyaBLEScanner.startBluetoothScan();
   }
   return tuya.startBluetoothScan();
+}
+
+export interface InitBluetoothActivatorParams {
+  deviceId?: string;
+  productId?: string;
+  homeId: number;
+  ssid: string;
+  password: string;
 }
 
 export function initBluetoothDualModeActivator(
