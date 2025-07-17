@@ -29,15 +29,19 @@ static TuyaBLERNScannerModule * scannerInstance = nil;
 RCT_EXPORT_MODULE(TuyaBLEScannerModule)
 
 RCT_EXPORT_METHOD(startBluetoothScan:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
-  [ThingSmartBLEManager sharedInstance].delegate = self;
-  self.promiseResolveBlock = resolver;
-  self.promiseRejectBlock = rejecter;
+  if (scannerInstance == nil) {
+    scannerInstance = [TuyaBLERNScannerModule new];
+  }
+
+  [ThingSmartBLEManager sharedInstance].delegate = scannerInstance;
+  scannerInstance.promiseResolveBlock = resolver;
+  scannerInstance.promiseRejectBlock = rejecter;
 
   [[ThingSmartBLEManager sharedInstance] startListening:YES];
 }
 
 - (void)didDiscoveryDeviceWithDeviceInfo:(ThingBLEAdvModel *)deviceInfo {
-  if (self.promiseResolveBlock) {
+  if (scannerInstance.promiseResolveBlock) {
     [[ThingSmartBLEManager sharedInstance] stopListening:YES];
     self.promiseResolveBlock([deviceInfo yy_modelToJSONObject]);
   }
