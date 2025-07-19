@@ -55,7 +55,12 @@ RCT_EXPORT_METHOD(initActivator:(NSDictionary *)params resolver:(RCTPromiseResol
       // Wait for activation
     } failure:^ {
       if (activatorInstance.promiseRejectBlock) {
-        resolver([NSString stringWithFormat:@"Error activating device with ID: %@", deviceId]);
+        NSDictionary *errorDict = @{
+          @"code": @"UNKNOWN_CONNECT_ERROR",
+          @"msg": [NSString stringWithFormat:@"Error activating device with ID: %@", deviceId],
+          @"error": @YES
+        };
+        resolver(errorDict);
       }
       return;
     }];
