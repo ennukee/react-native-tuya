@@ -57,6 +57,7 @@ RCT_EXPORT_METHOD(stopBluetoothScan:(RCTPromiseResolveBlock)resolver rejecter:(R
 - (void)didDiscoveryDeviceWithDeviceInfo:(ThingBLEAdvModel *)deviceInfo {
   if (scannerInstance.promiseResolveBlock) {
     scannerInstance.promiseResolveBlock([deviceInfo yy_modelToJSONObject]);
+    scannerInstance.promiseResolveBlock = nil;
   }
 }
 
