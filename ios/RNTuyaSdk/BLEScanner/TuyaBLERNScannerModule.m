@@ -40,10 +40,23 @@ RCT_EXPORT_METHOD(startBluetoothScan:(RCTPromiseResolveBlock)resolver rejecter:(
   [[ThingSmartBLEManager sharedInstance] startListening:YES];
 }
 
+RCT_EXPORT_METHOD(stopBluetoothScan:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
+  if (scannerInstance == nil) {
+    scannerInstance = [TuyaBLERNScannerModule new];
+  }
+
+  [ThingSmartBLEManager sharedInstance].delegate = nil;
+  scannerInstance.promiseResolveBlock = nil;
+  scannerInstance.promiseRejectBlock = nil;
+
+  [[ThingSmartBLEManager sharedInstance] stopListening:YES];
+
+  resolver(@"success");
+}
+
 - (void)didDiscoveryDeviceWithDeviceInfo:(ThingBLEAdvModel *)deviceInfo {
   if (scannerInstance.promiseResolveBlock) {
-    [[ThingSmartBLEManager sharedInstance] stopListening:YES];
-    self.promiseResolveBlock([deviceInfo yy_modelToJSONObject]);
+    scannerInstance.promiseResolveBlock([deviceInfo yy_modelToJSONObject]);
   }
 }
 

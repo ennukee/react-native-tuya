@@ -43,6 +43,13 @@ export function startBluetoothScan() {
   return tuya.startBluetoothScan();
 }
 
+export function stopBluetoothScan() {
+  if (Platform.OS === 'ios') {
+    return tuyaBLEScanner.stopBluetoothScan();
+  }
+  return tuya.stopBluetoothScan();
+}
+
 export interface InitBluetoothActivatorParams {
   deviceId?: string;
   productId?: string;

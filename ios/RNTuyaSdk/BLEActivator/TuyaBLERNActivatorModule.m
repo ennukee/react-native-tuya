@@ -50,7 +50,8 @@ RCT_EXPORT_METHOD(initActivator:(NSDictionary *)params resolver:(RCTPromiseResol
   NSString *ssid = params[kTuyaRNActivatorModuleSSID];
   NSString *password = params[kTuyaRNActivatorModulePassword];
   long long int homeIdValue = [homeId longLongValue];
-
+  NSLog(@"Starting BLE WiFi activation for device ID: %@, home ID: %lld, product ID: %@", deviceId, homeIdValue, productId);
+  
   [[ThingSmartBLEWifiActivator sharedInstance] startConfigBLEWifiDeviceWithUUID:deviceId homeId:homeIdValue productId:productId ssid:ssid password:password  timeout:180 success:^{
       // Wait for activation
     } failure:^ {
@@ -62,20 +63,16 @@ RCT_EXPORT_METHOD(initActivator:(NSDictionary *)params resolver:(RCTPromiseResol
         };
         resolver(errorDict);
       }
-      return;
     }];
+  [[ThingSmartBLEWifiActivator sharedInstance] stopDiscover];
 }
 
 - (void)bleWifiActivator:(ThingSmartBLEWifiActivator *)activator didReceiveBLEWifiConfigDevice:(ThingSmartDeviceModel *)deviceModel error:(NSError *)error {
-  if (!error && deviceModel) {
-    if (activatorInstance.promiseResolveBlock) {
-      self.promiseResolveBlock([deviceModel yy_modelToJSONObject]);
-    }
+  if (!error && deviceModel && activatorInstance.promiseResolveBlock) {
+    activatorInstance.promiseResolveBlock([deviceModel yy_modelToJSONObject]);
   }
-  if (error) {
-    if (activatorInstance.promiseRejectBlock) {
-      [TuyaRNUtils rejecterV2WithError:error handler:activatorInstance.promiseResolveBlock];
-    }
+  if (error && activatorInstance.promiseResolveBlock) {
+    [TuyaRNUtils rejecterV2WithError:error handler:activatorInstance.promiseResolveBlock];
   }
 
 }
