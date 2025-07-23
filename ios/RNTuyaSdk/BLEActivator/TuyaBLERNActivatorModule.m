@@ -51,8 +51,8 @@ RCT_EXPORT_METHOD(initActivator:(NSDictionary *)params resolver:(RCTPromiseResol
   NSString *password = params[kTuyaRNActivatorModulePassword];
   long long int homeIdValue = [homeId longLongValue];
 
-  [[ThingSmartBLEWifiActivator sharedInstance] startConfigBLEWifiDeviceWithUUID:deviceId homeId:homeIdValue productId:productId ssid:ssid password:password  timeout:180 success:^{
-      // Wait for activation
+  [[ThingSmartBLEWifiActivator sharedInstance] startConfigBLEWifiDeviceWithUUID:deviceId homeId:homeIdValue productId:productId ssid:ssid password:password  timeout:60 success:^{
+      NSLog(@"[TuyaBLERNActivatorModule][ennukee][INFO] Activation started for device ID: %@", deviceId);
     } failure:^ {
       if (activatorInstance.promiseRejectBlock) {
         NSDictionary *errorDict = @{
@@ -67,17 +67,24 @@ RCT_EXPORT_METHOD(initActivator:(NSDictionary *)params resolver:(RCTPromiseResol
 }
 
 - (void)bleWifiActivator:(ThingSmartBLEWifiActivator *)activator didReceiveBLEWifiConfigDevice:(ThingSmartDeviceModel *)deviceModel error:(NSError *)error {
+  if (!activatorInstance.promiseResolveBlock) {
+    NSLog(@"[TuyaBLERNActivatorModule][ennukee][ERROR] No promise resolve or reject block set for activation result.");
+    return;
+  }
+  
   if (!error && deviceModel) {
-    if (activatorInstance.promiseResolveBlock) {
-      self.promiseResolveBlock([deviceModel yy_modelToJSONObject]);
-    }
+    [TuyaRNUtils resolverWithHandlerandData:activatorInstance.promiseResolveBlock data:[deviceModel yy_modelToJSONObject]];
+  } else if (error) {
+    [TuyaRNUtils rejecterV2WithError:error handler:activatorInstance.promiseResolveBlock];
+  } else {
+    NSDictionary *errorDict = @{
+      @"code": @"UNKNOWN_ACTIVATION_ERROR",
+      @"msg": [NSString stringWithFormat:@"Error activating device with ID: %@", deviceModel.deviceId],
+      @"error": @YES
+    };
+    [TuyaRNUtils resolverWithHandlerandData:activatorInstance.promiseResolveBlock data:errorDict];
   }
-  if (error) {
-    if (activatorInstance.promiseRejectBlock) {
-      [TuyaRNUtils rejecterV2WithError:error handler:activatorInstance.promiseResolveBlock];
-    }
-  }
-
+  activatorInstance.promiseResolveBlock = nil;
 }
 
 @end
