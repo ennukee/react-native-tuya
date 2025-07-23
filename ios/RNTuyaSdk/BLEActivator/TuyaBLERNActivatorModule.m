@@ -36,6 +36,7 @@ static TuyaBLERNActivatorModule * activatorInstance = nil;
 RCT_EXPORT_MODULE(TuyaBLEActivatorModule)
 
 RCT_EXPORT_METHOD(initActivator:(NSDictionary *)params resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
+  NSLog(@"[TuyaBLERNActivatorModule][ennukee][INFO] Initializing BLE activator with params: %@", params);
   if (activatorInstance == nil) {
     activatorInstance = [TuyaBLERNActivatorModule new];
   }
@@ -54,6 +55,7 @@ RCT_EXPORT_METHOD(initActivator:(NSDictionary *)params resolver:(RCTPromiseResol
   [[ThingSmartBLEWifiActivator sharedInstance] startConfigBLEWifiDeviceWithUUID:deviceId homeId:homeIdValue productId:productId ssid:ssid password:password  timeout:60 success:^{
       NSLog(@"[TuyaBLERNActivatorModule][ennukee][INFO] Activation started for device ID: %@", deviceId);
     } failure:^ {
+      NSLog(@"[TuyaBLERNActivatorModule][ennukee][ERROR] Activation FAILED for device ID: %@", deviceId);
       if (activatorInstance.promiseRejectBlock) {
         NSDictionary *errorDict = @{
           @"code": @"UNKNOWN_CONNECT_ERROR",
@@ -67,16 +69,23 @@ RCT_EXPORT_METHOD(initActivator:(NSDictionary *)params resolver:(RCTPromiseResol
 }
 
 - (void)bleWifiActivator:(ThingSmartBLEWifiActivator *)activator didReceiveBLEWifiConfigDevice:(ThingSmartDeviceModel *)deviceModel error:(NSError *)error {
+  NSLog(@"[TuyaBLERNActivatorModule][ennukee][INFO] Activation result received");
   if (!activatorInstance.promiseResolveBlock) {
     NSLog(@"[TuyaBLERNActivatorModule][ennukee][ERROR] No promise resolve or reject block set for activation result.");
     return;
   }
-  
-  if (!error && deviceModel) {
-    [TuyaRNUtils resolverWithHandlerandData:activatorInstance.promiseResolveBlock data:[deviceModel yy_modelToJSONObject]];
-  } else if (error) {
+  if (error) {
+    NSLog(@"[TuyaBLERNActivatorModule][ennukee][ERROR] Activation FAILED");
     [TuyaRNUtils rejecterV2WithError:error handler:activatorInstance.promiseResolveBlock];
+    activatorInstance.promiseResolveBlock = nil;
+    return;
+  }
+  
+  if (deviceModel) {
+    NSLog(@"[TuyaBLERNActivatorModule][ennukee][INFO] Activation completed for device ID: %@", deviceModel.devId);
+    [TuyaRNUtils resolverWithHandlerandData:activatorInstance.promiseResolveBlock data:[deviceModel yy_modelToJSONObject]];
   } else {
+    NSLog(@"[TuyaBLERNActivatorModule][ennukee][ERROR] Activation completed but device model is nil");
     NSDictionary *errorDict = @{
       @"code": @"UNKNOWN_ACTIVATION_ERROR",
       @"msg": [NSString stringWithFormat:@"Error activating device with ID: %@", deviceModel.devId ?: @"Unknown"],
