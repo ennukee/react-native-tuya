@@ -79,7 +79,7 @@ RCT_EXPORT_METHOD(initActivator:(NSDictionary *)params resolver:(RCTPromiseResol
   } else {
     NSDictionary *errorDict = @{
       @"code": @"UNKNOWN_ACTIVATION_ERROR",
-      @"msg": [NSString stringWithFormat:@"Error activating device with ID: %@", deviceModel.deviceId],
+      @"msg": [NSString stringWithFormat:@"Error activating device with ID: %@", deviceModel.devId ?: @"Unknown"],
       @"error": @YES
     };
     [TuyaRNUtils resolverWithHandlerandData:activatorInstance.promiseResolveBlock data:errorDict];
