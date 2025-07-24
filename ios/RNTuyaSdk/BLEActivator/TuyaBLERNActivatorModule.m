@@ -52,6 +52,7 @@ RCT_EXPORT_METHOD(initActivator:(NSDictionary *)params resolver:(RCTPromiseResol
   NSString *password = params[kTuyaRNActivatorModulePassword];
   long long int homeIdValue = [homeId longLongValue];
 
+  NSLog(@"[TuyaBLERNActivatorModule][ennukee][INFO] Attempting to connect with device... (device ID: %@)", deviceId);
   [[ThingSmartBLEWifiActivator sharedInstance] startConfigBLEWifiDeviceWithUUID:deviceId homeId:homeIdValue productId:productId ssid:ssid password:password  timeout:60 success:^{
       NSLog(@"[TuyaBLERNActivatorModule][ennukee][INFO] Activation started for device ID: %@", deviceId);
     } failure:^ {
@@ -72,11 +73,13 @@ RCT_EXPORT_METHOD(initActivator:(NSDictionary *)params resolver:(RCTPromiseResol
   NSLog(@"[TuyaBLERNActivatorModule][ennukee][INFO] Activation result received");
   if (!activatorInstance.promiseResolveBlock) {
     NSLog(@"[TuyaBLERNActivatorModule][ennukee][ERROR] No promise resolve or reject block set for activation result.");
+    [[ThingSmartBLEWifiActivator sharedInstance] stopDiscover];
     return;
   }
   if (error) {
     NSLog(@"[TuyaBLERNActivatorModule][ennukee][ERROR] Activation FAILED");
     [TuyaRNUtils rejecterV2WithError:error handler:activatorInstance.promiseResolveBlock];
+    [[ThingSmartBLEWifiActivator sharedInstance] stopDiscover];
     activatorInstance.promiseResolveBlock = nil;
     return;
   }
@@ -93,6 +96,7 @@ RCT_EXPORT_METHOD(initActivator:(NSDictionary *)params resolver:(RCTPromiseResol
     };
     [TuyaRNUtils resolverWithHandlerandData:activatorInstance.promiseResolveBlock data:errorDict];
   }
+  [[ThingSmartBLEWifiActivator sharedInstance] stopDiscover];
   activatorInstance.promiseResolveBlock = nil;
 }
 
