@@ -29,7 +29,11 @@ static TuyaBLERNScannerModule * scannerInstance = nil;
 RCT_EXPORT_MODULE(TuyaBLEScannerModule)
 
 RCT_EXPORT_METHOD(startBluetoothScan:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
+  NSLog(@"[TuyaBLERNScannerModule][ennukee][INFO] Starting Bluetooth scan");
+  scannerInstance = nil;
+  NSLog(@"[TuyaBLERNScannerModule][ennukee][INFO] Reset scanner instance");
   if (scannerInstance == nil) {
+    NSLog(@"[TuyaBLERNScannerModule][ennukee][INFO] Creating new scanner instance");
     scannerInstance = [TuyaBLERNScannerModule new];
   }
 
@@ -37,10 +41,12 @@ RCT_EXPORT_METHOD(startBluetoothScan:(RCTPromiseResolveBlock)resolver rejecter:(
   scannerInstance.promiseResolveBlock = resolver;
   scannerInstance.promiseRejectBlock = rejecter;
 
+  NSLog(@"[TuyaBLERNScannerModule][ennukee][INFO] BLE Scanner activating listening");
   [[ThingSmartBLEManager sharedInstance] startListening:YES];
 }
 
 - (void)didDiscoveryDeviceWithDeviceInfo:(ThingBLEAdvModel *)deviceInfo {
+  NSLog(@"[TuyaBLERNScannerModule][ennukee][INFO] Discovered device: %@", deviceInfo);
   if (scannerInstance.promiseResolveBlock) {
     [[ThingSmartBLEManager sharedInstance] stopListening:NO];
     self.promiseResolveBlock([deviceInfo yy_modelToJSONObject]);
