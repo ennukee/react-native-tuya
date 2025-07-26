@@ -28,6 +28,13 @@ function startBluetoothScan() {
   }
   return tuya.startBluetoothScan();
 }
+function stopLePairing() {
+  if (reactNative.Platform.OS === 'ios') {
+    return tuyaBLEActivator.stopLePairing();
+  } else {
+    console.error('[tuya] stopLePairing is not supported on Android as it is not needed.');
+  }
+}
 function initBluetoothDualModeActivator(params) {
   if (reactNative.Platform.OS === 'ios') {
     return tuyaBLEActivator.initActivator(params);
@@ -318,6 +325,7 @@ exports.sortRoom = sortRoom;
 exports.startBluetoothScan = startBluetoothScan;
 exports.startOta = startOta;
 exports.stopConfig = stopConfig;
+exports.stopLePairing = stopLePairing;
 exports.unRegisterAllDevListeners = unRegisterAllDevListeners;
 exports.updateHome = updateHome;
 exports.updateTimerStatusWithTask = updateTimerStatusWithTask;

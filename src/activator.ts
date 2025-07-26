@@ -43,6 +43,14 @@ export function startBluetoothScan() {
   return tuya.startBluetoothScan();
 }
 
+export function stopLePairing() {
+  if (Platform.OS === 'ios') {
+    return tuyaBLEActivator.stopLePairing();
+  } else {
+    console.error('[tuya] stopLePairing is not supported on Android as it is not needed.');
+  }
+}
+
 export interface InitBluetoothActivatorParams {
   deviceId?: string;
   productId?: string;
