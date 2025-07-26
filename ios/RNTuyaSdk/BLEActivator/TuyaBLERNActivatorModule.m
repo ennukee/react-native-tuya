@@ -37,6 +37,7 @@ RCT_EXPORT_MODULE(TuyaBLEActivatorModule)
 
 RCT_EXPORT_METHOD(initActivator:(NSDictionary *)params resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
   NSLog(@"[TuyaBLERNActivatorModule][ennukee][INFO] Initializing BLE activator with params: %@", params);
+  activatorInstance = nil;
   if (activatorInstance == nil) {
     activatorInstance = [TuyaBLERNActivatorModule new];
   }
@@ -53,7 +54,7 @@ RCT_EXPORT_METHOD(initActivator:(NSDictionary *)params resolver:(RCTPromiseResol
   long long int homeIdValue = [homeId longLongValue];
 
   NSLog(@"[TuyaBLERNActivatorModule][ennukee][INFO] Attempting to connect with device... (device ID: %@)", deviceId);
-  [[ThingSmartBLEWifiActivator sharedInstance] startConfigBLEWifiDeviceWithUUID:deviceId homeId:homeIdValue productId:productId ssid:ssid password:password  timeout:60 success:^{
+  [[ThingSmartBLEWifiActivator sharedInstance] startConfigBLEWifiDeviceWithUUID:deviceId homeId:homeIdValue productId:productId ssid:ssid password:password timeout:60 success:^{
       NSLog(@"[TuyaBLERNActivatorModule][ennukee][INFO] Activation started for device ID: %@", deviceId);
     } failure:^ {
       NSLog(@"[TuyaBLERNActivatorModule][ennukee][ERROR] Activation FAILED for device ID: %@", deviceId);
@@ -98,6 +99,10 @@ RCT_EXPORT_METHOD(initActivator:(NSDictionary *)params resolver:(RCTPromiseResol
   }
   [[ThingSmartBLEWifiActivator sharedInstance] stopDiscover];
   activatorInstance.promiseResolveBlock = nil;
+}
+
+RCT_EXPORT_METHOD(stopLePairing) {
+  [[ThingSmartBLEWifiActivator sharedInstance] stopDiscover];
 }
 
 @end
