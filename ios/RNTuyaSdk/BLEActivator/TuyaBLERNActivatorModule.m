@@ -38,7 +38,9 @@ RCT_EXPORT_MODULE(TuyaBLEActivatorModule)
 RCT_EXPORT_METHOD(initActivator:(NSDictionary *)params resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
   NSLog(@"[TuyaBLERNActivatorModule][ennukee][INFO] Initializing BLE activator with params: %@", params);
   activatorInstance = nil;
+  NSLog(@"[TuyaBLERNActivatorModule][ennukee][INFO] Reset activator instance");
   if (activatorInstance == nil) {
+    NSLog(@"[TuyaBLERNActivatorModule][ennukee][INFO] Creating new activator instance");
     activatorInstance = [TuyaBLERNActivatorModule new];
   }
 
