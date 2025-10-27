@@ -75,9 +75,18 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
 
                 ThingHomeSdk.getActivator().newMultiModeActivator()
                   .startActivator(multiModeActivatorBean, object : IMultiModeActivatorListener {
-                    override fun onSuccess(bean: DeviceBean) {
-                      Log.d("TuyaActivatorModule", "[tuya] activator listener success: $bean")
-                      promise.resolve(TuyaReactUtils.parseToWritableMap(bean));
+                    override fun onSuccess(pairedDeviceBean: DeviceBean) {
+                      Log.d("TuyaActivatorModule", "[tuya] activator listener success: $pairedDeviceBean")
+                      val outputObj = object {
+                        val error = false
+                        val device = pairedDeviceBean
+                        val token = token
+                        val uuid = multiModeActivatorBean.uuid
+                        val mac = multiModeActivatorBean.mac
+                        val deviceType = multiModeActivatorBean.deviceType
+                        val address = multiModeActivatorBean.address
+                      }
+                      promise.resolve(TuyaReactUtils.parseToWritableMap(outputObj));
                     }
 
                     override fun onFailure(code: Int, msg: String?, handle: Any?) {
