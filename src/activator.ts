@@ -68,6 +68,25 @@ export function initBluetoothDualModeActivator(
   return tuya.initBluetoothDualModeActivator(params);
 }
 
+export interface InitBluetoothActivatorAndroidOutput {
+  device: DeviceBean;
+  uuid: string;
+  token: string;
+  mac: string;
+  address: string;
+  deviceType: string;
+}
+
+export function initBluetoothFlowAndroid(
+  params: InitBluetoothActivatorParams
+): Promise<InitBluetoothActivatorAndroidOutput | TuyaError> {
+  if (Platform.OS === 'ios') {
+    console.error('[tuya] initBluetoothFlowAndroid is not supported on iOS.');
+    return Promise.reject('Not supported on iOS');
+  }
+  return tuya.initBluetoothDualModeActivator(params);
+}
+
 export function getCurrentWifi(
   success: (ssid: string) => void,
   error: () => void

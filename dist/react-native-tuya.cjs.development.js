@@ -41,6 +41,13 @@ function initBluetoothDualModeActivator(params) {
   }
   return tuya.initBluetoothDualModeActivator(params);
 }
+function initBluetoothFlowAndroid(params) {
+  if (reactNative.Platform.OS === 'ios') {
+    console.error('[tuya] initBluetoothFlowAndroid is not supported on iOS.');
+    return Promise.reject('Not supported on iOS');
+  }
+  return tuya.initBluetoothDualModeActivator(params);
+}
 function getCurrentWifi(success, error) {
   // We need the Allow While Using App location permission to use this.
   return tuya.getCurrentWifi({}, success, error);
@@ -305,6 +312,7 @@ exports.getRoomDeviceList = getRoomDeviceList;
 exports.getTimerTaskStatusWithDeviceId = getTimerTaskStatusWithDeviceId;
 exports.initActivator = initActivator;
 exports.initBluetoothDualModeActivator = initBluetoothDualModeActivator;
+exports.initBluetoothFlowAndroid = initBluetoothFlowAndroid;
 exports.joinFamily = joinFamily;
 exports.loginWithEmail = loginWithEmail;
 exports.loginWithGuest = loginWithGuest;

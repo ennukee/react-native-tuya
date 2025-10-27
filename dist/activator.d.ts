@@ -27,4 +27,13 @@ export interface InitBluetoothActivatorParams {
     password: string;
 }
 export declare function initBluetoothDualModeActivator(params: InitBluetoothActivatorParams): Promise<DeviceBean | TuyaError>;
+export interface InitBluetoothActivatorAndroidOutput {
+    device: DeviceBean;
+    uuid: string;
+    token: string;
+    mac: string;
+    address: string;
+    deviceType: string;
+}
+export declare function initBluetoothFlowAndroid(params: InitBluetoothActivatorParams): Promise<InitBluetoothActivatorAndroidOutput | TuyaError>;
 export declare function getCurrentWifi(success: (ssid: string) => void, error: () => void): any;
