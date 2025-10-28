@@ -69,7 +69,7 @@ export interface AndroidBLEActivatorParams {
   ssid: string;
   password: string;
   uuid: string;
-  deviceType: string;
+  deviceType: number;
   mac: string;
   address: string;
   token: string;

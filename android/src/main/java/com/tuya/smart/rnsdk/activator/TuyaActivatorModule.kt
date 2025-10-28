@@ -89,7 +89,7 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
       activatorBean.pwd = params.getString(PASSWORD);
 
       activatorBean.uuid = params.getString(UUID);
-      activatorBean.deviceType = params.getString(DEVICE_TYPE);
+      activatorBean.deviceType = params.getInt(DEVICE_TYPE);
       activatorBean.mac = params.getString(MAC);
       activatorBean.address = params.getString(ADDRESS);
 
