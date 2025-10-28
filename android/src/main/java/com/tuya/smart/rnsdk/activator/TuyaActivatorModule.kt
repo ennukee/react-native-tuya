@@ -22,6 +22,11 @@ import com.tuya.smart.rnsdk.utils.Constant.SSID
 import com.tuya.smart.rnsdk.utils.Constant.TIME
 import com.tuya.smart.rnsdk.utils.Constant.DEVID
 import com.tuya.smart.rnsdk.utils.Constant.TYPE
+import com.tuya.smart.rnsdk.utils.Constant.UUID
+import com.tuya.smart.rnsdk.utils.Constant.DEVICE_TYPE
+import com.tuya.smart.rnsdk.utils.Constant.MAC
+import com.tuya.smart.rnsdk.utils.Constant.ADDRESS
+import com.tuya.smart.rnsdk.utils.Constant.TOKEN
 import android.util.Log
 
 
