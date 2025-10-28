@@ -64,6 +64,24 @@ export function getActivatorToken(
   return tuya.getActivatorToken(params);
 }
 
+export interface AndroidBLEActivatorParams {
+  homeId: number;
+  ssid: string;
+  password: string;
+  uuid: string;
+  deviceType: string;
+  mac: string;
+  address: string;
+  token: string;
+}
+export function startAndroidBLEActivator(params: AndroidBLEActivatorParams) {
+  if (Platform.OS === 'ios') {
+    console.error('[tuya] startAndroidBLEActivator is not supported on iOS.');
+    return Promise.reject('Not supported on iOS');
+  }
+  return tuya.startBLEActivator(params);
+}
+
 export interface InitBluetoothActivatorParams {
   deviceId?: string;
   productId?: string;

@@ -23,6 +23,17 @@ export interface GetActivatorTokenParams {
     homeId: number;
 }
 export declare function getActivatorToken(params: GetActivatorTokenParams): Promise<string | TuyaError>;
+export interface AndroidBLEActivatorParams {
+    homeId: number;
+    ssid: string;
+    password: string;
+    uuid: string;
+    deviceType: string;
+    mac: string;
+    address: string;
+    token: string;
+}
+export declare function startAndroidBLEActivator(params: AndroidBLEActivatorParams): any;
 export interface InitBluetoothActivatorParams {
     deviceId?: string;
     productId?: string;

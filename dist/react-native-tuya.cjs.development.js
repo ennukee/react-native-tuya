@@ -42,6 +42,13 @@ function getActivatorToken(params) {
   }
   return tuya.getActivatorToken(params);
 }
+function startAndroidBLEActivator(params) {
+  if (reactNative.Platform.OS === 'ios') {
+    console.error('[tuya] startAndroidBLEActivator is not supported on iOS.');
+    return Promise.reject('Not supported on iOS');
+  }
+  return tuya.startBLEActivator(params);
+}
 function initBluetoothDualModeActivator(params) {
   if (reactNative.Platform.OS === 'ios') {
     return tuyaBLEActivator.initActivator(params);
@@ -338,6 +345,7 @@ exports.renameDevice = renameDevice;
 exports.resetEmailPassword = resetEmailPassword;
 exports.send = send;
 exports.sortRoom = sortRoom;
+exports.startAndroidBLEActivator = startAndroidBLEActivator;
 exports.startBluetoothScan = startBluetoothScan;
 exports.startOta = startOta;
 exports.stopConfig = stopConfig;

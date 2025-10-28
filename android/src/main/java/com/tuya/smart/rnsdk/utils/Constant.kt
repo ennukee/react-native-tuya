@@ -64,6 +64,10 @@ object Constant {
     const val DEVIDS = "devIds"
     const val IDS = "ids"
     const val OPERATOR = "operator"
+    const val MAC = "mac"
+    const val ADDRESS = "address"
+    const val UUID = "uuid"
+    const val DEVICE_TYPE = "deviceType"
 
     const val TASKNAME = "taskName"
     const val LOOPS = "loops"

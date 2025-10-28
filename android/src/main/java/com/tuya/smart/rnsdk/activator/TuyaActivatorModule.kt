@@ -76,6 +76,50 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
   }
 
   @ReactMethod
+  fun startBLEActivator(params: ReadableMap, promise: Promise) {
+    Log.d("TuyaActivatorModule", "[tuya] startBLEActivator called with: $params")
+    if (ReactParamsCheck.checkParams(arrayOf(HOMEID, SSID, PASSWORD, UUID, DEVICE_TYPE, MAC, ADDRESS, TOKEN), params)) {
+      val activatorBean = MultiModeActivatorBean();
+      activatorBean.ssid = params.getString(SSID);
+      activatorBean.pwd = params.getString(PASSWORD);
+
+      activatorBean.uuid = params.getString(UUID);
+      activatorBean.deviceType = params.getString(DEVICE_TYPE);
+      activatorBean.mac = params.getString(MAC);
+      activatorBean.address = params.getString(ADDRESS);
+
+      activatorBean.homeId = params.getDouble(HOMEID).toLong();
+      activatorBean.token = params.getString(TOKEN);
+      activatorBean.timeout = 180000;
+      activatorBean.phase1Timeout = 60000;
+
+      ThingHomeSdk.getActivator().newBleActivator()
+        .startActivator(activatorBean, object : IMultiModeActivatorListener {
+          override fun onSuccess(pairedDeviceBean: DeviceBean) {
+            Log.d("TuyaActivatorModule", "[tuya] BLE activator listener success: $pairedDeviceBean")
+            promsie.resolve(TuyaReactUtils.parseToWritableMap(pairedDeviceBean))
+          }
+
+          override fun onFailure(code: Int, msg: String?, handle: Any?) {
+            Log.d("TuyaActivatorModule", "[tuya] BLE activator listener failed: $code, $msg")
+            val errorObj = object {
+              val error = true
+              val code = code
+              val msg = msg
+            }
+            promsie.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
+          }
+        });
+    } else {
+      Log.d("TuyaActivatorModule", "[tuya] startBLEActivator failed: params did not match expected keys")
+      val errorObj = object {
+        val error = true
+      }
+      promsie.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
+    }
+  }
+
+  @ReactMethod
   fun initBluetoothDualModeActivator(params: ReadableMap, promise: Promise) {
     Log.d("TuyaActivatorModule", "[tuya] initBluetoothDualModeActivator called with: $params")
     if (ReactParamsCheck.checkParams(arrayOf(HOMEID, SSID, PASSWORD), params)) {
