@@ -97,7 +97,7 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
         .startActivator(activatorBean, object : IMultiModeActivatorListener {
           override fun onSuccess(pairedDeviceBean: DeviceBean) {
             Log.d("TuyaActivatorModule", "[tuya] BLE activator listener success: $pairedDeviceBean")
-            promsie.resolve(TuyaReactUtils.parseToWritableMap(pairedDeviceBean))
+            promise.resolve(TuyaReactUtils.parseToWritableMap(pairedDeviceBean))
           }
 
           override fun onFailure(code: Int, msg: String?, handle: Any?) {
@@ -107,7 +107,7 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
               val code = code
               val msg = msg
             }
-            promsie.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
+            promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
           }
         });
     } else {
@@ -115,7 +115,7 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
       val errorObj = object {
         val error = true
       }
-      promsie.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
+      promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
     }
   }
 
