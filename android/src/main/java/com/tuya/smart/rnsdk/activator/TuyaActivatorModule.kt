@@ -93,7 +93,7 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
       activatorBean.timeout = 180000;
       activatorBean.phase1Timeout = 60000;
 
-      ThingHomeSdk.getActivator().newBleActivator()
+      ThingHomeSdk.getActivator().newMultiModeActivator()
         .startActivator(activatorBean, object : IMultiModeActivatorListener {
           override fun onSuccess(pairedDeviceBean: DeviceBean) {
             Log.d("TuyaActivatorModule", "[tuya] BLE activator listener success: $pairedDeviceBean")
