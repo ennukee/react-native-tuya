@@ -44,6 +44,36 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
     ThingHomeSdk.getBleOperator().stopLeScan();
   }
 
+  @ReactMethod
+  fun getActivatorToken(params: ReadableMap, promise: Promise) {
+    Log.d("TuyaActivatorModule", "[tuya] getActivatorToken called with: $params")
+    if (ReactParamsCheck.checkParams(arrayOf(HOMEID), params)) {
+      ThingHomeSdk.getActivatorInstance().getActivatorToken(params.getDouble(HOMEID).toLong(), object : IThingActivatorGetToken {
+        override fun onSuccess(token: String) {
+          val outputObj = object {
+            val token = token
+          }
+          promise.resolve(TuyaReactUtils.parseToWritableMap(outputObj));
+        }
+
+        override fun onFailure(s: String, s1: String) {
+          Log.d("TuyaActivatorModule", "[tuya] getActivatorToken failed: $s, $s1")
+          val errorObj = object {
+            val error = true
+            val code = s
+            val msg = s1
+          }
+          promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
+        }
+      })
+    } else {
+      Log.d("TuyaActivatorModule", "[tuya] getActivatorToken failed: params did not match expected keys")
+      val errorObj = object {
+        val error = true
+      }
+      promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
+    }
+  }
 
   @ReactMethod
   fun initBluetoothDualModeActivator(params: ReadableMap, promise: Promise) {
@@ -85,6 +115,7 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
                         val mac = multiModeActivatorBean.mac
                         val deviceType = multiModeActivatorBean.deviceType
                         val address = multiModeActivatorBean.address
+                        val flag = bean.getFlag()
                       }
                       promise.resolve(TuyaReactUtils.parseToWritableMap(outputObj));
                     }
@@ -115,6 +146,10 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
       };
     } else {
       Log.d("TuyaActivatorModule", "[tuya] initActivator failed: params did not match expected keys")
+      val errorObj = object {
+        val error = true
+      }
+      promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
     }
   }
 

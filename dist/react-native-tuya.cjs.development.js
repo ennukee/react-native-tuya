@@ -35,6 +35,13 @@ function stopLePairing() {
     console.error('[tuya] stopLePairing is not supported on Android as it is not needed.');
   }
 }
+function getActivatorToken(params) {
+  if (reactNative.Platform.OS === 'ios') {
+    console.error('[tuya] getActivatorToken is not supported on iOS.');
+    return Promise.reject('Not supported on iOS');
+  }
+  return tuya.getActivatorToken(params);
+}
 function initBluetoothDualModeActivator(params) {
   if (reactNative.Platform.OS === 'ios') {
     return tuyaBLEActivator.initActivator(params);
@@ -298,6 +305,7 @@ exports.bridge = bridge;
 exports.cancelAccount = cancelAccount;
 exports.createHome = createHome;
 exports.dismissHome = dismissHome;
+exports.getActivatorToken = getActivatorToken;
 exports.getAllTimerWithDeviceId = getAllTimerWithDeviceId;
 exports.getCurrentUser = getCurrentUser;
 exports.getCurrentWifi = getCurrentWifi;

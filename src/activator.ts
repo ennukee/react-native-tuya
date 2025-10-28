@@ -51,6 +51,19 @@ export function stopLePairing() {
   }
 }
 
+export interface GetActivatorTokenParams {
+  homeId: number;
+}
+export function getActivatorToken(
+  params: GetActivatorTokenParams
+): Promise<string | TuyaError> {
+  if (Platform.OS === 'ios') {
+    console.error('[tuya] getActivatorToken is not supported on iOS.');
+    return Promise.reject('Not supported on iOS');
+  }
+  return tuya.getActivatorToken(params);
+}
+
 export interface InitBluetoothActivatorParams {
   deviceId?: string;
   productId?: string;

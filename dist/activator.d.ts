@@ -19,6 +19,10 @@ export declare function initActivator(params: InitActivatorParams): Promise<Devi
 export declare function stopConfig(): any;
 export declare function startBluetoothScan(): any;
 export declare function stopLePairing(): any;
+export interface GetActivatorTokenParams {
+    homeId: number;
+}
+export declare function getActivatorToken(params: GetActivatorTokenParams): Promise<string | TuyaError>;
 export interface InitBluetoothActivatorParams {
     deviceId?: string;
     productId?: string;

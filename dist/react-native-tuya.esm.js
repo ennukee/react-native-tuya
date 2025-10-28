@@ -32,6 +32,13 @@ function stopLePairing() {
     console.error('[tuya] stopLePairing is not supported on Android as it is not needed.');
   }
 }
+function getActivatorToken(params) {
+  if (Platform.OS === 'ios') {
+    console.error('[tuya] getActivatorToken is not supported on iOS.');
+    return Promise.reject('Not supported on iOS');
+  }
+  return tuya.getActivatorToken(params);
+}
 function initBluetoothDualModeActivator(params) {
   if (Platform.OS === 'ios') {
     return tuyaBLEActivator.initActivator(params);
@@ -281,5 +288,5 @@ function loginWithGuest(params) {
   return tuya$8.loginWithTouristUser(params);
 }
 
-export { ActivatorType, DEVLISTENER, GROUPLISTENER, HARDWAREUPGRADELISTENER, HOMECHANGE, HOMESTATUS, SINGLETRANSFER, SUBDEVLISTENER, addEvent, addMember, addTimerWithTask, bridge, cancelAccount, createHome, dismissHome, getAllTimerWithDeviceId, getCurrentUser, getCurrentWifi, getDataPointStat, getDevice, getDeviceData, getEmailValidateCode, getHomeDetail, getOtaInfo, getRegisterEmailValidateCode, getRoomDeviceList, getTimerTaskStatusWithDeviceId, initActivator, initBluetoothDualModeActivator, initBluetoothFlowAndroid, joinFamily, loginWithEmail, loginWithGuest, logout, openNetworkSettings, queryHomeList, queryMemberList, queryRoomList, registerAccountWithEmail, registerDevListener, removeDevice, removeMember, removeTimerWithTask, renameDevice, resetEmailPassword, send, sortRoom, startBluetoothScan, startOta, stopConfig, stopLePairing, unRegisterAllDevListeners, updateHome, updateTimerStatusWithTask, updateTimerWithTask };
+export { ActivatorType, DEVLISTENER, GROUPLISTENER, HARDWAREUPGRADELISTENER, HOMECHANGE, HOMESTATUS, SINGLETRANSFER, SUBDEVLISTENER, addEvent, addMember, addTimerWithTask, bridge, cancelAccount, createHome, dismissHome, getActivatorToken, getAllTimerWithDeviceId, getCurrentUser, getCurrentWifi, getDataPointStat, getDevice, getDeviceData, getEmailValidateCode, getHomeDetail, getOtaInfo, getRegisterEmailValidateCode, getRoomDeviceList, getTimerTaskStatusWithDeviceId, initActivator, initBluetoothDualModeActivator, initBluetoothFlowAndroid, joinFamily, loginWithEmail, loginWithGuest, logout, openNetworkSettings, queryHomeList, queryMemberList, queryRoomList, registerAccountWithEmail, registerDevListener, removeDevice, removeMember, removeTimerWithTask, renameDevice, resetEmailPassword, send, sortRoom, startBluetoothScan, startOta, stopConfig, stopLePairing, unRegisterAllDevListeners, updateHome, updateTimerStatusWithTask, updateTimerWithTask };
 //# sourceMappingURL=react-native-tuya.esm.js.map
