@@ -22,7 +22,9 @@ export declare function stopLePairing(): any;
 export interface GetActivatorTokenParams {
     homeId: number;
 }
-export declare function getActivatorToken(params: GetActivatorTokenParams): Promise<string | TuyaError>;
+export declare function getActivatorToken(params: GetActivatorTokenParams): Promise<{
+    token: string;
+} | TuyaError>;
 export interface AndroidBLEActivatorParams {
     homeId: number;
     ssid: string;

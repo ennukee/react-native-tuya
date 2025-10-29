@@ -26,7 +26,6 @@ export declare type DeviceDetailResponse = {
     roomId: number;
     uuid: string;
     communicationId: string;
-    connectionStatus: number;
 };
 export declare type GetHomeDetailResponse = {
     deviceList: DeviceDetailResponse[];
