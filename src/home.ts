@@ -36,6 +36,7 @@ export type DeviceDetailResponse = {
   roomId: number;
   uuid: string;
   communicationId: string;
+  connectionStatus: number;
 };
 export type GetHomeDetailResponse = {
   deviceList: DeviceDetailResponse[];

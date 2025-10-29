@@ -12,7 +12,7 @@ export type DeviceBean = {
   dps: DeviceDps;
   uuid: string;
   communicationId: string;
-  connectionStatus: string;
+  connectionStatus: number;
   bluetooth: boolean;
   cloudOnline: boolean;
   isOnline: boolean;
