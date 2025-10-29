@@ -40,6 +40,7 @@ export interface LateWifiActivationParams {
     devId: string;
     ssid: string;
     password: string;
+    token: string;
 }
 export declare function startLateWifiActivation(params: LateWifiActivationParams): Promise<DeviceBean | TuyaError>;
 export interface InitBluetoothActivatorParams {

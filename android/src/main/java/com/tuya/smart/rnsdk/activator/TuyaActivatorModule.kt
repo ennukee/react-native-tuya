@@ -149,10 +149,11 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
 
     if (ReactParamsCheck.checkParams(arrayOf(DEV_ID, SSID, PASSWORD), params)) {
       Log.d("TuyaActivatorModule", "[tuya] startLateWifiActivator using cached scan bean: $mLatestScanBean")
-      val activatorBean = MultiModeActivatorBean(mLatestScanBean!!);
+      val activatorBean = MultiModeActivatorBean(mLatestScanBean);
       activatorBean.ssid = params.getString(SSID);
       activatorBean.pwd = params.getString(PASSWORD);
       activatorBean.devId = params.getString(DEV_ID);
+      activatorBean.token = params.getString(TOKEN);
       activatorBean.timeout = 120000;
 
       ThingHomeSdk.getActivator().newMultiModeActivator()

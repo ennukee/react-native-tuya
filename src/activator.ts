@@ -86,6 +86,7 @@ export interface LateWifiActivationParams {
   devId: string;
   ssid: string;
   password: string;
+  token: string;
 }
 export function startLateWifiActivation(params: LateWifiActivationParams): Promise<DeviceBean | TuyaError> {
   if (Platform.OS === 'ios') {
