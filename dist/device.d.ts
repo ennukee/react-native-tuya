@@ -11,6 +11,9 @@ export declare type DeviceBean = {
     bluetooth: boolean;
     cloudOnline: boolean;
     isOnline: boolean;
+    mac: string;
+    address: string;
+    deviceType: number;
 };
 export declare type DevListenerParams = {
     devId: string;
