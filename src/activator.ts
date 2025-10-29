@@ -92,7 +92,7 @@ export function startLateWifiActivation(params: LateWifiActivationParams): Promi
     console.error('[tuya] startLateWifiActivation is not supported on iOS.');
     return Promise.reject('Not supported on iOS');
   }
-  return tuya.startLateWifiActivation(params);
+  return tuya.startLateWifiActivator(params);
 }
 
 export interface InitBluetoothActivatorParams {
