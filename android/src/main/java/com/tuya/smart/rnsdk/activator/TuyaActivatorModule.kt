@@ -98,7 +98,7 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
       multiModeActivatorBean.pwd = params.getString(PASSWORD);
 
       multiModeActivatorBean.uuid = mLatestScanBean?.getUuid() ?: params.getString(UUID);
-      multiModeActivatorBean.deviceType = mLatestScanBean?.getDeviceType() ?: params.getString(DEVICE_TYPE);
+      multiModeActivatorBean.deviceType = mLatestScanBean?.getDeviceType() ?: params.getInt(DEVICE_TYPE);
       multiModeActivatorBean.mac = mLatestScanBean?.getMac() ?: params.getString(MAC);
       multiModeActivatorBean.address = mLatestScanBean?.getAddress() ?: params.getString(ADDRESS);
 
