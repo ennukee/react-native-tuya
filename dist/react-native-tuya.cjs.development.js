@@ -49,6 +49,13 @@ function startAndroidBLEActivator(params) {
   }
   return tuya.startBLEActivator(params);
 }
+function startLateWifiActivation(params) {
+  if (reactNative.Platform.OS === 'ios') {
+    console.error('[tuya] startLateWifiActivation is not supported on iOS.');
+    return Promise.reject('Not supported on iOS');
+  }
+  return tuya.startLateWifiActivation(params);
+}
 function initBluetoothDualModeActivator(params) {
   if (reactNative.Platform.OS === 'ios') {
     return tuyaBLEActivator.initActivator(params);
@@ -347,6 +354,7 @@ exports.send = send;
 exports.sortRoom = sortRoom;
 exports.startAndroidBLEActivator = startAndroidBLEActivator;
 exports.startBluetoothScan = startBluetoothScan;
+exports.startLateWifiActivation = startLateWifiActivation;
 exports.startOta = startOta;
 exports.stopConfig = stopConfig;
 exports.stopLePairing = stopLePairing;

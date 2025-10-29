@@ -36,6 +36,12 @@ export interface AndroidBLEActivatorParams {
     token: string;
 }
 export declare function startAndroidBLEActivator(params: AndroidBLEActivatorParams): any;
+export interface LateWifiActivationParams {
+    devId: string;
+    ssid: string;
+    password: string;
+}
+export declare function startLateWifiActivation(params: LateWifiActivationParams): Promise<DeviceBean | TuyaError>;
 export interface InitBluetoothActivatorParams {
     deviceId?: string;
     productId?: string;

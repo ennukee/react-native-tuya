@@ -82,6 +82,19 @@ export function startAndroidBLEActivator(params: AndroidBLEActivatorParams) {
   return tuya.startBLEActivator(params);
 }
 
+export interface LateWifiActivationParams {
+  devId: string;
+  ssid: string;
+  password: string;
+}
+export function startLateWifiActivation(params: LateWifiActivationParams): Promise<DeviceBean | TuyaError> {
+  if (Platform.OS === 'ios') {
+    console.error('[tuya] startLateWifiActivation is not supported on iOS.');
+    return Promise.reject('Not supported on iOS');
+  }
+  return tuya.startLateWifiActivation(params);
+}
+
 export interface InitBluetoothActivatorParams {
   deviceId?: string;
   productId?: string;

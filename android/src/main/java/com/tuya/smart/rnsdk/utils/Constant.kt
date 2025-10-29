@@ -68,6 +68,7 @@ object Constant {
     const val ADDRESS = "address"
     const val UUID = "uuid"
     const val DEVICE_TYPE = "deviceType"
+    const val DEV_ID = "devId" 
 
     const val TASKNAME = "taskName"
     const val LOOPS = "loops"

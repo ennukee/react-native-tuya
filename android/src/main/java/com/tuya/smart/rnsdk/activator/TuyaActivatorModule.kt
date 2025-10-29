@@ -4,6 +4,7 @@ import android.content.Intent
 import android.provider.Settings
 import com.facebook.react.bridge.*
 import com.thingclips.smart.android.ble.api.ScanType
+import com.thingclips.smart.android.ble.api.ScanDeviceBean
 import com.thingclips.smart.android.common.utils.WiFiUtil
 import com.thingclips.smart.home.sdk.ThingHomeSdk
 import com.thingclips.smart.home.sdk.builder.ActivatorBuilder
@@ -34,14 +35,18 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
 
   var mITuyaActivator: IThingActivator? = null
   var mTuyaGWActivator: IThingActivator? = null
+  var mLatestDeviceBean: DeviceBean? = null
+  var mLatestScanBean: ScanDeviceBean? = null
   override fun getName(): String {
     return "TuyaActivatorModule"
   }
 
   @ReactMethod
   fun startBluetoothScan(promise: Promise) {
-    ThingHomeSdk.getBleOperator().startLeScan(60000, ScanType.SINGLE
-    ) { bean -> promise.resolve(TuyaReactUtils.parseToWritableMap(bean)) };
+    ThingHomeSdk.getBleOperator().startLeScan(60000, ScanType.SINGLE) { bean ->
+      mLatestScanBean = bean
+      promise.resolve(TuyaReactUtils.parseToWritableMap(bean))
+    }
   }
 
   @ReactMethod
@@ -101,6 +106,7 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
       ThingHomeSdk.getActivator().newMultiModeActivator()
         .startActivator(activatorBean, object : IMultiModeActivatorListener {
           override fun onSuccess(pairedDeviceBean: DeviceBean) {
+            mLatestDeviceBean = pairedDeviceBean
             Log.d("TuyaActivatorModule", "[tuya] BLE activator listener success: $pairedDeviceBean")
             promise.resolve(TuyaReactUtils.parseToWritableMap(pairedDeviceBean))
           }
@@ -117,6 +123,53 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
         });
     } else {
       Log.d("TuyaActivatorModule", "[tuya] startBLEActivator failed: params did not match expected keys")
+      val errorObj = object {
+        val error = true
+      }
+      promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
+    }
+  }
+
+  @ReactMethod
+  fun startLateWifiActivator(params: ReadableMap, promise: Promise) {
+    Log.d("TuyaActivatorModule", "[tuya] startLateWifiActivator called with: $params")
+    if (mLatestScanBean == null) {
+      Log.d("TuyaActivatorModule", "[tuya] startLateWifiActivator failed: no latest scanned device")
+      val errorObj = object {
+        val error = true
+        val code = "SCAN_CACHE_EMPTY"
+      }
+      promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
+      return
+    }
+
+    if (ReactParamsCheck.checkParams(arrayOf(DEV_ID, SSID, PASSWORD), params)) {
+      val activatorBean = MultiModeActivatorBean(mLatestScanBean!!);
+      activatorBean.ssid = params.getString(SSID);
+      activatorBean.pwd = params.getString(PASSWORD);
+      activatorBean.devId = params.getString(DEV_ID);
+      activatorBean.timeout = 120000;
+
+      ThingHomeSdk.getActivator().newMultiModeActivator()
+        .startWifiEnable(activatorBean, object : IMultiModeActivatorListener {
+          override fun onSuccess(pairedDeviceBean: DeviceBean) {
+            mLatestDeviceBean = pairedDeviceBean
+            Log.d("TuyaActivatorModule", "[tuya] late wifi activator listener success: $pairedDeviceBean")
+            promise.resolve(TuyaReactUtils.parseToWritableMap(pairedDeviceBean))
+          }
+
+          override fun onFailure(code: Int, msg: String?, handle: Any?) {
+            Log.d("TuyaActivatorModule", "[tuya] late wifi activator listener failed: $code, $msg")
+            val errorObj = object {
+              val error = true
+              val code = code
+              val msg = msg
+            }
+            promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
+          }
+        });
+    } else {
+      Log.d("TuyaActivatorModule", "[tuya] startLateWifiActivator failed: params did not match expected keys")
       val errorObj = object {
         val error = true
       }
