@@ -38,6 +38,7 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
   var mTuyaGWActivator: IThingActivator? = null
   var mLatestDeviceBean: DeviceBean? = null
   var mLatestScanBean: ScanDeviceBean? = null
+  var mLatestActivatorToken: String? = null
   override fun getName(): String {
     return "TuyaActivatorModule"
   }
@@ -61,6 +62,8 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
     if (ReactParamsCheck.checkParams(arrayOf(HOMEID), params)) {
       ThingHomeSdk.getActivatorInstance().getActivatorToken(params.getDouble(HOMEID).toLong(), object : IThingActivatorGetToken {
         override fun onSuccess(token: String) {
+          Log.d("TuyaActivatorModule", "[tuya] getActivatorToken success: $token")
+          mLatestActivatorToken = token
           val outputObj = object {
             val token = token
           }
@@ -90,22 +93,22 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
   fun startBLEActivator(params: ReadableMap, promise: Promise) {
     Log.d("TuyaActivatorModule", "[tuya] startBLEActivator called with: $params")
     if (ReactParamsCheck.checkParams(arrayOf(HOMEID, SSID, PASSWORD, UUID, DEVICE_TYPE, MAC, ADDRESS, TOKEN), params)) {
-      val activatorBean = MultiModeActivatorBean();
-      activatorBean.ssid = params.getString(SSID);
-      activatorBean.pwd = params.getString(PASSWORD);
+      val multiModeActivatorBean = MultiModeActivatorBean();
+      multiModeActivatorBean.ssid = params.getString(SSID);
+      multiModeActivatorBean.pwd = params.getString(PASSWORD);
 
-      activatorBean.uuid = params.getString(UUID);
-      activatorBean.deviceType = params.getInt(DEVICE_TYPE);
-      activatorBean.mac = params.getString(MAC);
-      activatorBean.address = params.getString(ADDRESS);
+      multiModeActivatorBean.uuid = mLatestScanBean?.getUuid() ?: params.getString(UUID);
+      multiModeActivatorBean.deviceType = mLatestScanBean?.getDeviceType() ?: params.getString(DEVICE_TYPE);
+      multiModeActivatorBean.mac = mLatestScanBean?.getMac() ?: params.getString(MAC);
+      multiModeActivatorBean.address = mLatestScanBean?.getAddress() ?: params.getString(ADDRESS);
 
-      activatorBean.homeId = params.getDouble(HOMEID).toLong();
-      activatorBean.token = params.getString(TOKEN);
-      activatorBean.timeout = 180000;
-      activatorBean.phase1Timeout = 60000;
+      multiModeActivatorBean.homeId = params.getDouble(HOMEID).toLong();
+      multiModeActivatorBean.token = mLatestActivatorToken ?: params.getString(TOKEN);
+      multiModeActivatorBean.timeout = 180000;
+      multiModeActivatorBean.phase1Timeout = 60000;
 
       ThingHomeSdk.getActivator().newMultiModeActivator()
-        .startActivator(activatorBean, object : IMultiModeActivatorListener {
+        .startActivator(multiModeActivatorBean, object : IMultiModeActivatorListener {
           override fun onSuccess(pairedDeviceBean: DeviceBean) {
             mLatestDeviceBean = pairedDeviceBean
             Log.d("TuyaActivatorModule", "[tuya] BLE activator listener success: $pairedDeviceBean")
@@ -145,6 +148,7 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
     }
 
     if (ReactParamsCheck.checkParams(arrayOf(DEV_ID, SSID, PASSWORD), params)) {
+      Log.d("TuyaActivatorModule", "[tuya] startLateWifiActivator using cached scan bean: $mLatestScanBean")
       val activatorBean = MultiModeActivatorBean(mLatestScanBean!!);
       activatorBean.ssid = params.getString(SSID);
       activatorBean.pwd = params.getString(PASSWORD);
