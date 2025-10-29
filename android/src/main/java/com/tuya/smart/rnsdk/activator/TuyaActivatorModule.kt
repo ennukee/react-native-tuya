@@ -64,28 +64,28 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
         override fun onSuccess(token: String) {
           Log.d("TuyaActivatorModule", "[tuya] getActivatorToken success: $token")
           mLatestActivatorToken = token
-          val outputObj = object {
-            val token = token
+          val map = Arguments.createMap().apply {
+            putString("token", token)
           }
-          promise.resolve(TuyaReactUtils.parseToWritableMap(outputObj));
+          promise.resolve(map)
         }
 
         override fun onFailure(s: String, s1: String) {
           Log.d("TuyaActivatorModule", "[tuya] getActivatorToken failed: $s, $s1")
-          val errorObj = object {
-            val error = true
-            val code = s
-            val msg = s1
+          val errorMap = Arguments.createMap().apply {
+            putBoolean("error", true)
+            putString("code", s)
+            putString("msg", s1)
           }
-          promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
+          promise.resolve(errorMap)
         }
       })
     } else {
       Log.d("TuyaActivatorModule", "[tuya] getActivatorToken failed: params did not match expected keys")
-      val errorObj = object {
-        val error = true
+      val errorMap = Arguments.createMap().apply {
+        putBoolean("error", true)
       }
-      promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
+      promise.resolve(errorMap)
     }
   }
 
@@ -117,20 +117,20 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
 
           override fun onFailure(code: Int, msg: String?, handle: Any?) {
             Log.d("TuyaActivatorModule", "[tuya] BLE activator listener failed: $code, $msg")
-            val errorObj = object {
-              val error = true
-              val code = code
-              val msg = msg
+            val errorMap = Arguments.createMap().apply {
+              putBoolean("error", true)
+              putInt("code", code)
+              putString("msg", msg)
             }
-            promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
+            promise.resolve(errorMap)
           }
         });
     } else {
       Log.d("TuyaActivatorModule", "[tuya] startBLEActivator failed: params did not match expected keys")
-      val errorObj = object {
-        val error = true
+      val errorMap = Arguments.createMap().apply {
+        putBoolean("error", true)
       }
-      promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
+      promise.resolve(errorMap)
     }
   }
 
@@ -139,11 +139,11 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
     Log.d("TuyaActivatorModule", "[tuya] startLateWifiActivator called with: $params")
     if (mLatestScanBean == null) {
       Log.d("TuyaActivatorModule", "[tuya] startLateWifiActivator failed: no latest scanned device")
-      val errorObj = object {
-        val error = true
-        val code = "SCAN_CACHE_EMPTY"
+      val errorMap = Arguments.createMap().apply {
+        putBoolean("error", true)
+        putString("code", "SCAN_CACHE_EMPTY")
       }
-      promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
+      promise.resolve(errorMap)
       return
     }
 
@@ -166,20 +166,20 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
 
           override fun onFailure(code: Int, msg: String?, handle: Any?) {
             Log.d("TuyaActivatorModule", "[tuya] late wifi activator listener failed: $code, $msg")
-            val errorObj = object {
-              val error = true
-              val code = code
-              val msg = msg
+            val errorMap = Arguments.createMap().apply {
+              putBoolean("error", true)
+              putInt("code", code)
+              putString("msg", msg)
             }
-            promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
+            promise.resolve(errorMap)
           }
         });
     } else {
       Log.d("TuyaActivatorModule", "[tuya] startLateWifiActivator failed: params did not match expected keys")
-      val errorObj = object {
-        val error = true
+      val errorMap = Arguments.createMap().apply {
+        putBoolean("error", true)
       }
-      promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
+      promise.resolve(errorMap)
     }
   }
 
