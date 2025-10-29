@@ -56,7 +56,7 @@ export interface GetActivatorTokenParams {
 }
 export function getActivatorToken(
   params: GetActivatorTokenParams
-): Promise<string | TuyaError> {
+): Promise<{ token: string } | TuyaError> {
   if (Platform.OS === 'ios') {
     console.error('[tuya] getActivatorToken is not supported on iOS.');
     return Promise.reject('Not supported on iOS');
