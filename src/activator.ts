@@ -79,7 +79,23 @@ export function startAndroidBLEActivator(params: AndroidBLEActivatorParams) {
     console.error('[tuya] startAndroidBLEActivator is not supported on iOS.');
     return Promise.reject('Not supported on iOS');
   }
-  return tuya.startBLEActivator(params);
+  return tuya.startWiFiActivator(params);
+}
+
+export interface OfflineBLEActivatorParams {
+  homeId: number;
+  uuid: string;
+  deviceType: number;
+  mac: string;
+  address: string;
+  token: string;
+}
+export function startOfflineBLEActivator(params: OfflineBLEActivatorParams) {
+  if (Platform.OS === 'ios') {
+    console.error('[tuya] startOfflineBLEActivator is not supported on iOS.');
+    return Promise.reject('Not supported on iOS');
+  }
+  return tuya.startOfflineBLEActivator(params);
 }
 
 export interface LateWifiActivationParams {

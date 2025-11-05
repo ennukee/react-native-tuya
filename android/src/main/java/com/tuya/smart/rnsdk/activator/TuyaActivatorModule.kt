@@ -90,8 +90,8 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
   }
 
   @ReactMethod
-  fun startBLEActivator(params: ReadableMap, promise: Promise) {
-    Log.d("TuyaActivatorModule", "[tuya] startBLEActivator called with: $params")
+  fun startWiFiActivator(params: ReadableMap, promise: Promise) {
+    Log.d("TuyaActivatorModule", "[tuya] startWiFiActivator called with: $params")
     if (ReactParamsCheck.checkParams(arrayOf(HOMEID, SSID, PASSWORD, UUID, DEVICE_TYPE, MAC, ADDRESS, TOKEN), params)) {
       val multiModeActivatorBean = MultiModeActivatorBean();
       multiModeActivatorBean.uuid = mLatestScanBean?.getUuid() ?: params.getString(UUID);
@@ -104,19 +104,18 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
 
       multiModeActivatorBean.homeId = params.getDouble(HOMEID).toLong();
       multiModeActivatorBean.token = mLatestActivatorToken ?: params.getString(TOKEN);
-      multiModeActivatorBean.phase1Timeout = 45000;
       multiModeActivatorBean.timeout = 90000;
 
       ThingHomeSdk.getActivator().newMultiModeActivator()
         .startActivator(multiModeActivatorBean, object : IMultiModeActivatorListener {
           override fun onSuccess(pairedDeviceBean: DeviceBean) {
             mLatestDeviceBean = pairedDeviceBean
-            Log.d("TuyaActivatorModule", "[tuya] BLE activator listener success: $pairedDeviceBean")
+            Log.d("TuyaActivatorModule", "[tuya] Wi-Fi activator listener success: $pairedDeviceBean")
             promise.resolve(TuyaReactUtils.parseToWritableMap(pairedDeviceBean))
           }
 
           override fun onFailure(code: Int, msg: String?, handle: Any?) {
-            Log.d("TuyaActivatorModule", "[tuya] BLE activator listener failed: $code, $msg")
+            Log.d("TuyaActivatorModule", "[tuya] Wi-Fi activator listener failed: $code, $msg")
             val errorMap = Arguments.createMap().apply {
               putBoolean("error", true)
               putInt("code", code)
@@ -126,7 +125,49 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
           }
         });
     } else {
-      Log.d("TuyaActivatorModule", "[tuya] startBLEActivator failed: params did not match expected keys")
+      Log.d("TuyaActivatorModule", "[tuya] startWiFiActivator failed: params did not match expected keys")
+      val errorMap = Arguments.createMap().apply {
+        putBoolean("error", true)
+      }
+      promise.resolve(errorMap)
+    }
+  }
+
+  @ReactMethod
+  fun startOfflineBLEActivator(params: ReadableMap, promise: Promise) {
+    Log.d("TuyaActivatorModule", "[tuya] startOfflineBLEActivator called with: $params")
+    if (ReactParamsCheck.checkParams(arrayOf(HOMEID, UUID, DEVICE_TYPE, MAC, ADDRESS, TOKEN), params)) {
+      val multiModeActivatorBean = MultiModeActivatorBean();
+      multiModeActivatorBean.uuid = mLatestScanBean?.getUuid() ?: params.getString(UUID);
+      multiModeActivatorBean.deviceType = mLatestScanBean?.getDeviceType() ?: params.getInt(DEVICE_TYPE);
+      multiModeActivatorBean.mac = mLatestScanBean?.getMac() ?: params.getString(MAC);
+      multiModeActivatorBean.address = mLatestScanBean?.getAddress() ?: params.getString(ADDRESS);
+
+      multiModeActivatorBean.homeId = params.getDouble(HOMEID).toLong();
+      multiModeActivatorBean.token = mLatestActivatorToken ?: params.getString(TOKEN);
+      multiModeActivatorBean.phase1Timeout = 45000;
+      multiModeActivatorBean.timeout = 90000;
+
+      ThingHomeSdk.getActivator().newMultiModeActivator()
+        .startBleActivator(multiModeActivatorBean, object : IMultiModeActivatorListener {
+          override fun onSuccess(pairedDeviceBean: DeviceBean) {
+            mLatestDeviceBean = pairedDeviceBean
+            Log.d("TuyaActivatorModule", "[tuya] offline BLE activator listener success: $pairedDeviceBean")
+            promise.resolve(TuyaReactUtils.parseToWritableMap(pairedDeviceBean))
+          }
+
+          override fun onFailure(code: Int, msg: String?, handle: Any?) {
+            Log.d("TuyaActivatorModule", "[tuya] offline BLE activator listener failed: $code, $msg")
+            val errorMap = Arguments.createMap().apply {
+              putBoolean("error", true)
+              putInt("code", code)
+              putString("msg", msg)
+            }
+            promise.resolve(errorMap)
+          }
+        });
+    } else {
+      Log.d("TuyaActivatorModule", "[tuya] startOfflineBLEActivator failed: params did not match expected keys")
       val errorMap = Arguments.createMap().apply {
         putBoolean("error", true)
       }

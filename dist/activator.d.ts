@@ -36,6 +36,15 @@ export interface AndroidBLEActivatorParams {
     token: string;
 }
 export declare function startAndroidBLEActivator(params: AndroidBLEActivatorParams): any;
+export interface OfflineBLEActivatorParams {
+    homeId: number;
+    uuid: string;
+    deviceType: number;
+    mac: string;
+    address: string;
+    token: string;
+}
+export declare function startOfflineBLEActivator(params: OfflineBLEActivatorParams): any;
 export interface LateWifiActivationParams {
     devId: string;
     ssid: string;
