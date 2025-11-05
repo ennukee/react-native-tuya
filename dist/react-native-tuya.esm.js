@@ -56,8 +56,10 @@ function startLateWifiActivation(params) {
 function initBluetoothDualModeActivator(params) {
   if (Platform.OS === 'ios') {
     return tuyaBLEActivator.initActivator(params);
+  } else {
+    console.error('[tuya] initBluetoothDualModeActivator is not supported on Android. Use initBluetoothFlowAndroid instead.');
+    return Promise.reject('Not supported on Android');
   }
-  return tuya.initBluetoothDualModeActivator(params);
 }
 function initBluetoothFlowAndroid(params) {
   if (Platform.OS === 'ios') {

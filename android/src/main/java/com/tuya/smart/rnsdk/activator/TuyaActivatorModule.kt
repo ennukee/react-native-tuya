@@ -109,7 +109,6 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
       multiModeActivatorBean.homeId = params.getDouble(HOMEID).toLong();
       multiModeActivatorBean.token = mLatestActivatorToken ?: params.getString(TOKEN);
       multiModeActivatorBean.timeout = 45000;
-      multiModeActivatorBean.phase1Timeout = 20000;
 
       ThingHomeSdk.getActivator().newMultiModeActivator()
         .startActivator(multiModeActivatorBean, object : IMultiModeActivatorListener {
@@ -187,83 +186,83 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
     }
   }
 
-  @ReactMethod
-  fun initBluetoothDualModeActivator(params: ReadableMap, promise: Promise) {
-    Log.d("TuyaActivatorModule", "[tuya] initBluetoothDualModeActivator called with: $params")
-    if (ReactParamsCheck.checkParams(arrayOf(HOMEID, SSID, PASSWORD), params)) {
-      ThingHomeSdk.getBleOperator().startLeScan(60000, ScanType.SINGLE
-      ) { bean ->
-        params.getDouble(HOMEID).toLong().let {
-          Log.d("TuyaActivatorModule", "[tuya] bluetooth found device")
-          ThingHomeSdk.getActivatorInstance()
-            .getActivatorToken(it, object : IThingActivatorGetToken {
-              override fun onSuccess(token: String) {
-                val multiModeActivatorBean = MultiModeActivatorBean();
-                multiModeActivatorBean.ssid = params.getString(SSID);
-                multiModeActivatorBean.pwd = params.getString(PASSWORD);
+  // @ReactMethod
+  // fun initBluetoothDualModeActivator(params: ReadableMap, promise: Promise) {
+  //   Log.d("TuyaActivatorModule", "[tuya] initBluetoothDualModeActivator called with: $params")
+  //   if (ReactParamsCheck.checkParams(arrayOf(HOMEID, SSID, PASSWORD), params)) {
+  //     ThingHomeSdk.getBleOperator().startLeScan(60000, ScanType.SINGLE
+  //     ) { bean ->
+  //       params.getDouble(HOMEID).toLong().let {
+  //         Log.d("TuyaActivatorModule", "[tuya] bluetooth found device")
+  //         ThingHomeSdk.getActivatorInstance()
+  //           .getActivatorToken(it, object : IThingActivatorGetToken {
+  //             override fun onSuccess(token: String) {
+  //               val multiModeActivatorBean = MultiModeActivatorBean();
+  //               multiModeActivatorBean.ssid = params.getString(SSID);
+  //               multiModeActivatorBean.pwd = params.getString(PASSWORD);
 
-                multiModeActivatorBean.uuid = bean.getUuid();
-                multiModeActivatorBean.deviceType = bean.getDeviceType();
-                multiModeActivatorBean.mac = bean.getMac();
-                multiModeActivatorBean.address = bean.getAddress();
+  //               multiModeActivatorBean.uuid = bean.getUuid();
+  //               multiModeActivatorBean.deviceType = bean.getDeviceType();
+  //               multiModeActivatorBean.mac = bean.getMac();
+  //               multiModeActivatorBean.address = bean.getAddress();
 
 
-                multiModeActivatorBean.homeId = params.getDouble(HOMEID).toLong();
-                multiModeActivatorBean.token = token;
-                multiModeActivatorBean.timeout = 180000;
-                multiModeActivatorBean.phase1Timeout = 60000;
+  //               multiModeActivatorBean.homeId = params.getDouble(HOMEID).toLong();
+  //               multiModeActivatorBean.token = token;
+  //               multiModeActivatorBean.timeout = 180000;
+  //               multiModeActivatorBean.phase1Timeout = 60000;
 
-                Log.d("TuyaActivatorModule", "[tuya] attempting to start activator with information: ${multiModeActivatorBean.uuid}")
+  //               Log.d("TuyaActivatorModule", "[tuya] attempting to start activator with information: ${multiModeActivatorBean.uuid}")
 
-                ThingHomeSdk.getActivator().newMultiModeActivator()
-                  .startActivator(multiModeActivatorBean, object : IMultiModeActivatorListener {
-                    override fun onSuccess(pairedDeviceBean: DeviceBean) {
-                      Log.d("TuyaActivatorModule", "[tuya] activator listener success: $pairedDeviceBean")
-                      val outputObj = object {
-                        val error = false
-                        val device = pairedDeviceBean
-                        val token = token
-                        val uuid = multiModeActivatorBean.uuid
-                        val mac = multiModeActivatorBean.mac
-                        val deviceType = multiModeActivatorBean.deviceType
-                        val address = multiModeActivatorBean.address
-                        val flag = bean.getFlag()
-                      }
-                      promise.resolve(TuyaReactUtils.parseToWritableMap(outputObj));
-                    }
+  //               ThingHomeSdk.getActivator().newMultiModeActivator()
+  //                 .startActivator(multiModeActivatorBean, object : IMultiModeActivatorListener {
+  //                   override fun onSuccess(pairedDeviceBean: DeviceBean) {
+  //                     Log.d("TuyaActivatorModule", "[tuya] activator listener success: $pairedDeviceBean")
+  //                     val outputObj = object {
+  //                       val error = false
+  //                       val device = pairedDeviceBean
+  //                       val token = token
+  //                       val uuid = multiModeActivatorBean.uuid
+  //                       val mac = multiModeActivatorBean.mac
+  //                       val deviceType = multiModeActivatorBean.deviceType
+  //                       val address = multiModeActivatorBean.address
+  //                       val flag = bean.getFlag()
+  //                     }
+  //                     promise.resolve(TuyaReactUtils.parseToWritableMap(outputObj));
+  //                   }
 
-                    override fun onFailure(code: Int, msg: String?, handle: Any?) {
-                      Log.d("TuyaActivatorModule", "[tuya] activator listener failed: $code, $msg")
-                      val errorObj = object {
-                        val error = true
-                        val code = code
-                        val msg = msg
-                      }
-                      promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
-                    }
-                  });
-              }
+  //                   override fun onFailure(code: Int, msg: String?, handle: Any?) {
+  //                     Log.d("TuyaActivatorModule", "[tuya] activator listener failed: $code, $msg")
+  //                     val errorObj = object {
+  //                       val error = true
+  //                       val code = code
+  //                       val msg = msg
+  //                     }
+  //                     promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
+  //                   }
+  //                 });
+  //             }
 
-              override fun onFailure(s: String, s1: String) {
-                Log.d("TuyaActivatorModule", "[tuya] initBluetoothDualModeActivator failed to get token: $s, $s1")
-                val errorObj = object {
-                  val error = true
-                  val code = s
-                  val msg = s1
-                }
-                promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
-              }
-            })
-        }
-      };
-    } else {
-      Log.d("TuyaActivatorModule", "[tuya] initActivator failed: params did not match expected keys")
-      val errorObj = object {
-        val error = true
-      }
-      promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
-    }
-  }
+  //             override fun onFailure(s: String, s1: String) {
+  //               Log.d("TuyaActivatorModule", "[tuya] initBluetoothDualModeActivator failed to get token: $s, $s1")
+  //               val errorObj = object {
+  //                 val error = true
+  //                 val code = s
+  //                 val msg = s1
+  //               }
+  //               promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
+  //             }
+  //           })
+  //       }
+  //     };
+  //   } else {
+  //     Log.d("TuyaActivatorModule", "[tuya] initActivator failed: params did not match expected keys")
+  //     val errorObj = object {
+  //       val error = true
+  //     }
+  //     promise.resolve(TuyaReactUtils.parseToWritableMap(errorObj))
+  //   }
+  // }
 
 
   @ReactMethod
