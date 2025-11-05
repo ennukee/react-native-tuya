@@ -92,23 +92,20 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
   @ReactMethod
   fun startBLEActivator(params: ReadableMap, promise: Promise) {
     Log.d("TuyaActivatorModule", "[tuya] startBLEActivator called with: $params")
-    if (mLatestScanBean == null) {
-      Log.d("TuyaActivatorModule", "[tuya] startBLEActivator failed: no latest scanned device")
-      val errorMap = Arguments.createMap().apply {
-        putBoolean("error", true)
-        putString("code", "SCAN_CACHE_EMPTY")
-      }
-      promise.resolve(errorMap)
-      return
-    }
     if (ReactParamsCheck.checkParams(arrayOf(HOMEID, SSID, PASSWORD, UUID, DEVICE_TYPE, MAC, ADDRESS, TOKEN), params)) {
-      val multiModeActivatorBean = MultiModeActivatorBean(mLatestScanBean);
+      val multiModeActivatorBean = MultiModeActivatorBean();
+      multiModeActivatorBean.uuid = mLatestScanBean?.getUuid() ?: params.getString(UUID);
+      multiModeActivatorBean.deviceType = mLatestScanBean?.getDeviceType() ?: params.getInt(DEVICE_TYPE);
+      multiModeActivatorBean.mac = mLatestScanBean?.getMac() ?: params.getString(MAC);
+      multiModeActivatorBean.address = mLatestScanBean?.getAddress() ?: params.getString(ADDRESS);
+
       multiModeActivatorBean.ssid = params.getString(SSID);
       multiModeActivatorBean.pwd = params.getString(PASSWORD);
 
       multiModeActivatorBean.homeId = params.getDouble(HOMEID).toLong();
       multiModeActivatorBean.token = mLatestActivatorToken ?: params.getString(TOKEN);
-      multiModeActivatorBean.timeout = 45000;
+      multiModeActivatorBean.phase1Timeout = 45000;
+      multiModeActivatorBean.timeout = 90000;
 
       ThingHomeSdk.getActivator().newMultiModeActivator()
         .startActivator(multiModeActivatorBean, object : IMultiModeActivatorListener {
