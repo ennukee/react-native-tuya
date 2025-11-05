@@ -74,7 +74,7 @@ export interface AndroidBLEActivatorParams {
   address: string;
   token: string;
 }
-export function startAndroidBLEActivator(params: AndroidBLEActivatorParams) {
+export function startAndroidBLEActivator(params: AndroidBLEActivatorParams): Promise<DeviceBean | TuyaError> {
   if (Platform.OS === 'ios') {
     console.error('[tuya] startAndroidBLEActivator is not supported on iOS.');
     return Promise.reject('Not supported on iOS');
@@ -90,7 +90,7 @@ export interface OfflineBLEActivatorParams {
   address: string;
   token: string;
 }
-export function startOfflineBLEActivator(params: OfflineBLEActivatorParams) {
+export function startOfflineBLEActivator(params: OfflineBLEActivatorParams): Promise<DeviceBean | TuyaError> {
   if (Platform.OS === 'ios') {
     console.error('[tuya] startOfflineBLEActivator is not supported on iOS.');
     return Promise.reject('Not supported on iOS');
@@ -102,7 +102,6 @@ export interface LateWifiActivationParams {
   devId: string;
   ssid: string;
   password: string;
-  token: string;
 }
 export function startLateWifiActivation(params: LateWifiActivationParams): Promise<DeviceBean | TuyaError> {
   if (Platform.OS === 'ios') {

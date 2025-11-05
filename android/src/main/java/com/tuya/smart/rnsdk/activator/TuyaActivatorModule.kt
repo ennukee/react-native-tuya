@@ -194,7 +194,6 @@ class TuyaActivatorModule(reactContext: ReactApplicationContext) : ReactContextB
       activatorBean.ssid = params.getString(SSID);
       activatorBean.pwd = params.getString(PASSWORD);
       activatorBean.devId = params.getString(DEV_ID);
-      activatorBean.token = params.getString(TOKEN);
       activatorBean.timeout = 120000;
 
       ThingHomeSdk.getActivator().newMultiModeActivator()

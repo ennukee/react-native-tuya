@@ -35,7 +35,7 @@ export interface AndroidBLEActivatorParams {
     address: string;
     token: string;
 }
-export declare function startAndroidBLEActivator(params: AndroidBLEActivatorParams): any;
+export declare function startAndroidBLEActivator(params: AndroidBLEActivatorParams): Promise<DeviceBean | TuyaError>;
 export interface OfflineBLEActivatorParams {
     homeId: number;
     uuid: string;
@@ -44,12 +44,11 @@ export interface OfflineBLEActivatorParams {
     address: string;
     token: string;
 }
-export declare function startOfflineBLEActivator(params: OfflineBLEActivatorParams): any;
+export declare function startOfflineBLEActivator(params: OfflineBLEActivatorParams): Promise<DeviceBean | TuyaError>;
 export interface LateWifiActivationParams {
     devId: string;
     ssid: string;
     password: string;
-    token: string;
 }
 export declare function startLateWifiActivation(params: LateWifiActivationParams): Promise<DeviceBean | TuyaError>;
 export interface InitBluetoothActivatorParams {
