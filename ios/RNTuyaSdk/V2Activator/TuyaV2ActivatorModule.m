@@ -80,8 +80,9 @@ RCT_EXPORT_METHOD(getActivatorToken:(NSDictionary *)params resolver:(RCTPromiseR
 RCT_EXPORT_METHOD(offlinePairBLEDevice:(NSDictionary *)params resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
   NSLog(@"[TuyaV2ActivatorModule][ennukee][INFO] Starting offline pairing with params: %@ and cached device %@ and token %@", params, self.scannedDeviceInfo, self.activatorToken);
   long long int homeIdValue = [params[kTuyaRNActivatorModuleHomeId] longLongValue];
+  NSString *substringToken = [self.activatorToken substringWithRange:NSMakeRange(2, 8)];
 
-  [[ThingSmartBLEManager sharedInstance] activatorDualDeviceWithBleChannel:self.scannedDeviceInfo homeId:homeIdValue token:self.activatorToken success:^(ThingSmartDeviceModel *deviceModel) {
+  [[ThingSmartBLEManager sharedInstance] activatorDualDeviceWithBleChannel:self.scannedDeviceInfo homeId:homeIdValue token:substringToken success:^(ThingSmartDeviceModel *deviceModel) {
     NSLog(@"[TuyaV2ActivatorModule][ennukee][INFO] Offline pairing success");
     resolver([deviceModel yy_modelToJSONObject]);
   } failure:^(NSError *error) {
