@@ -41,9 +41,8 @@ static TuyaV2ActivatorModule * activatorInstance = nil;
 
 RCT_EXPORT_MODULE(TuyaV2ActivatorModule)
 
-RCT_EXPORT_METHOD(startBluetoothScan:(NSDictionary *)params resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
-  NSLog(@"[TuyaV2ActivatorModule][ennukee][INFO] Starting Bluetooth scan with params: %@", params);
-
+RCT_EXPORT_METHOD(startBluetoothScan:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
+  NSLog(@"[TuyaV2ActivatorModule][ennukee][INFO] Starting Bluetooth scan");
 
   [ThingSmartBLEManager sharedInstance].delegate = self;
   self.scanResolver = resolver;
