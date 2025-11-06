@@ -23,16 +23,13 @@
 #define kTuyaRNActivatorModulePassword @"password"
 #define kTuyaRNActivatorModuleToken @"token"
 
-// Bluetooth Pairing
-static TuyaV2ActivatorModule * activatorInstance = nil;
-
 @interface TuyaV2ActivatorModule()<ThingSmartBLEManagerDelegate>
 
 @property(copy, nonatomic) RCTPromiseResolveBlock resolver;
 @property(copy, nonatomic) RCTPromiseResolveBlock scanResolver;
 
 // Scan result
-@property(copy, nonatomic) ThingBLEAdvModel *scannedDeviceInfo;
+@property(nonatomic, strong) ThingBLEAdvModel *scannedDeviceInfo;
 @property(copy, nonatomic) NSString *activatorToken;
 
 @end
