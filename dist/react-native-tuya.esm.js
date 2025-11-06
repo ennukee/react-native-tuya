@@ -2,7 +2,7 @@ import { Platform, NativeModules, NativeEventEmitter } from 'react-native';
 
 var tuya = NativeModules.TuyaActivatorModule;
 var tuyaBLEActivator = NativeModules.TuyaBLEActivatorModule;
-var tuyaBLEScanner = NativeModules.TuyaBLEScannerModule;
+var tuyaV2Activator = NativeModules.TuyaV2ActivatorModule;
 function openNetworkSettings() {
   return tuya.openNetworkSettings({});
 }
@@ -21,9 +21,15 @@ function stopConfig() {
 }
 function startBluetoothScan() {
   if (Platform.OS === 'ios') {
-    return tuyaBLEScanner.startBluetoothScan();
+    return tuyaV2Activator.startBluetoothScan();
   }
   return tuya.startBluetoothScan();
+}
+function stopBluetoothScan() {
+  if (Platform.OS === 'android') {
+    console.error('[tuya] stopBluetoothScan is not supported on Android as it is not needed.');
+  }
+  return tuyaV2Activator.stopBluetoothScan();
 }
 function stopLePairing() {
   if (Platform.OS === 'ios') {
@@ -34,8 +40,7 @@ function stopLePairing() {
 }
 function getActivatorToken(params) {
   if (Platform.OS === 'ios') {
-    console.error('[tuya] getActivatorToken is not supported on iOS.');
-    return Promise.reject('Not supported on iOS');
+    return tuyaV2Activator.getActivatorToken(params);
   }
   return tuya.getActivatorToken(params);
 }
@@ -48,15 +53,13 @@ function startAndroidBLEActivator(params) {
 }
 function startOfflineBLEActivator(params) {
   if (Platform.OS === 'ios') {
-    console.error('[tuya] startOfflineBLEActivator is not supported on iOS.');
-    return Promise.reject('Not supported on iOS');
+    return tuyaV2Activator.offlinePairBLEDevice(params);
   }
   return tuya.startOfflineBLEActivator(params);
 }
 function startLateWifiActivation(params) {
   if (Platform.OS === 'ios') {
-    console.error('[tuya] startLateWifiActivation is not supported on iOS.');
-    return Promise.reject('Not supported on iOS');
+    return tuyaV2Activator.activateBLEWifiChannel(params);
   }
   return tuya.startLateWifiActivator(params);
 }
@@ -311,5 +314,5 @@ function loginWithGuest(params) {
   return tuya$8.loginWithTouristUser(params);
 }
 
-export { ActivatorType, DEVLISTENER, GROUPLISTENER, HARDWAREUPGRADELISTENER, HOMECHANGE, HOMESTATUS, SINGLETRANSFER, SUBDEVLISTENER, addEvent, addMember, addTimerWithTask, bridge, cancelAccount, createHome, dismissHome, getActivatorToken, getAllTimerWithDeviceId, getCurrentUser, getCurrentWifi, getDataPointStat, getDevice, getDeviceData, getEmailValidateCode, getHomeDetail, getOtaInfo, getRegisterEmailValidateCode, getRoomDeviceList, getTimerTaskStatusWithDeviceId, initActivator, initBluetoothDualModeActivator, initBluetoothFlowAndroid, joinFamily, loginWithEmail, loginWithGuest, logout, openNetworkSettings, queryHomeList, queryMemberList, queryRoomList, registerAccountWithEmail, registerDevListener, removeDevice, removeMember, removeTimerWithTask, renameDevice, resetEmailPassword, send, sortRoom, startAndroidBLEActivator, startBluetoothScan, startLateWifiActivation, startOfflineBLEActivator, startOta, stopConfig, stopLePairing, unRegisterAllDevListeners, updateHome, updateTimerStatusWithTask, updateTimerWithTask };
+export { ActivatorType, DEVLISTENER, GROUPLISTENER, HARDWAREUPGRADELISTENER, HOMECHANGE, HOMESTATUS, SINGLETRANSFER, SUBDEVLISTENER, addEvent, addMember, addTimerWithTask, bridge, cancelAccount, createHome, dismissHome, getActivatorToken, getAllTimerWithDeviceId, getCurrentUser, getCurrentWifi, getDataPointStat, getDevice, getDeviceData, getEmailValidateCode, getHomeDetail, getOtaInfo, getRegisterEmailValidateCode, getRoomDeviceList, getTimerTaskStatusWithDeviceId, initActivator, initBluetoothDualModeActivator, initBluetoothFlowAndroid, joinFamily, loginWithEmail, loginWithGuest, logout, openNetworkSettings, queryHomeList, queryMemberList, queryRoomList, registerAccountWithEmail, registerDevListener, removeDevice, removeMember, removeTimerWithTask, renameDevice, resetEmailPassword, send, sortRoom, startAndroidBLEActivator, startBluetoothScan, startLateWifiActivation, startOfflineBLEActivator, startOta, stopBluetoothScan, stopConfig, stopLePairing, unRegisterAllDevListeners, updateHome, updateTimerStatusWithTask, updateTimerWithTask };
 //# sourceMappingURL=react-native-tuya.esm.js.map

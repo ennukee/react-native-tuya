@@ -18,6 +18,7 @@ export declare type InitActivatorParams = {
 export declare function initActivator(params: InitActivatorParams): Promise<DeviceDetailResponse | TuyaError>;
 export declare function stopConfig(): any;
 export declare function startBluetoothScan(): any;
+export declare function stopBluetoothScan(): any;
 export declare function stopLePairing(): any;
 export interface GetActivatorTokenParams {
     homeId: number;
@@ -38,11 +39,11 @@ export interface AndroidBLEActivatorParams {
 export declare function startAndroidBLEActivator(params: AndroidBLEActivatorParams): Promise<DeviceBean | TuyaError>;
 export interface OfflineBLEActivatorParams {
     homeId: number;
-    uuid: string;
-    deviceType: number;
-    mac: string;
-    address: string;
-    token: string;
+    uuid?: string;
+    deviceType?: number;
+    mac?: string;
+    address?: string;
+    token?: string;
 }
 export declare function startOfflineBLEActivator(params: OfflineBLEActivatorParams): Promise<DeviceBean | TuyaError>;
 export interface LateWifiActivationParams {

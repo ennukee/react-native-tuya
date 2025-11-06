@@ -5,7 +5,7 @@ import { TuyaError } from './generic';
 
 const tuya = NativeModules.TuyaActivatorModule;
 const tuyaBLEActivator = NativeModules.TuyaBLEActivatorModule;
-const tuyaBLEScanner = NativeModules.TuyaBLEScannerModule;
+const tuyaV2Activator = NativeModules.TuyaV2ActivatorModule;
 
 export function openNetworkSettings() {
   return tuya.openNetworkSettings({});
@@ -38,9 +38,16 @@ export function stopConfig() {
 
 export function startBluetoothScan() {
   if (Platform.OS === 'ios') {
-    return tuyaBLEScanner.startBluetoothScan();
+    return tuyaV2Activator.startBluetoothScan();
   }
   return tuya.startBluetoothScan();
+}
+
+export function stopBluetoothScan() {
+  if (Platform.OS === 'android') {
+    console.error('[tuya] stopBluetoothScan is not supported on Android as it is not needed.');
+  }
+  return tuyaV2Activator.stopBluetoothScan();
 }
 
 export function stopLePairing() {
@@ -58,8 +65,7 @@ export function getActivatorToken(
   params: GetActivatorTokenParams
 ): Promise<{ token: string } | TuyaError> {
   if (Platform.OS === 'ios') {
-    console.error('[tuya] getActivatorToken is not supported on iOS.');
-    return Promise.reject('Not supported on iOS');
+    return tuyaV2Activator.getActivatorToken(params);
   }
   return tuya.getActivatorToken(params);
 }
@@ -84,16 +90,15 @@ export function startAndroidBLEActivator(params: AndroidBLEActivatorParams): Pro
 
 export interface OfflineBLEActivatorParams {
   homeId: number;
-  uuid: string;
-  deviceType: number;
-  mac: string;
-  address: string;
-  token: string;
+  uuid?: string;
+  deviceType?: number;
+  mac?: string;
+  address?: string;
+  token?: string;
 }
 export function startOfflineBLEActivator(params: OfflineBLEActivatorParams): Promise<DeviceBean | TuyaError> {
   if (Platform.OS === 'ios') {
-    console.error('[tuya] startOfflineBLEActivator is not supported on iOS.');
-    return Promise.reject('Not supported on iOS');
+    return tuyaV2Activator.offlinePairBLEDevice(params);
   }
   return tuya.startOfflineBLEActivator(params);
 }
@@ -105,8 +110,7 @@ export interface LateWifiActivationParams {
 }
 export function startLateWifiActivation(params: LateWifiActivationParams): Promise<DeviceBean | TuyaError> {
   if (Platform.OS === 'ios') {
-    console.error('[tuya] startLateWifiActivation is not supported on iOS.');
-    return Promise.reject('Not supported on iOS');
+    return tuyaV2Activator.activateBLEWifiChannel(params);
   }
   return tuya.startLateWifiActivator(params);
 }

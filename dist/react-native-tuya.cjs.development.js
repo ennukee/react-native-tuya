@@ -6,7 +6,7 @@ var reactNative = require('react-native');
 
 var tuya = reactNative.NativeModules.TuyaActivatorModule;
 var tuyaBLEActivator = reactNative.NativeModules.TuyaBLEActivatorModule;
-var tuyaBLEScanner = reactNative.NativeModules.TuyaBLEScannerModule;
+var tuyaV2Activator = reactNative.NativeModules.TuyaV2ActivatorModule;
 function openNetworkSettings() {
   return tuya.openNetworkSettings({});
 }
@@ -24,9 +24,15 @@ function stopConfig() {
 }
 function startBluetoothScan() {
   if (reactNative.Platform.OS === 'ios') {
-    return tuyaBLEScanner.startBluetoothScan();
+    return tuyaV2Activator.startBluetoothScan();
   }
   return tuya.startBluetoothScan();
+}
+function stopBluetoothScan() {
+  if (reactNative.Platform.OS === 'android') {
+    console.error('[tuya] stopBluetoothScan is not supported on Android as it is not needed.');
+  }
+  return tuyaV2Activator.stopBluetoothScan();
 }
 function stopLePairing() {
   if (reactNative.Platform.OS === 'ios') {
@@ -37,8 +43,7 @@ function stopLePairing() {
 }
 function getActivatorToken(params) {
   if (reactNative.Platform.OS === 'ios') {
-    console.error('[tuya] getActivatorToken is not supported on iOS.');
-    return Promise.reject('Not supported on iOS');
+    return tuyaV2Activator.getActivatorToken(params);
   }
   return tuya.getActivatorToken(params);
 }
@@ -51,15 +56,13 @@ function startAndroidBLEActivator(params) {
 }
 function startOfflineBLEActivator(params) {
   if (reactNative.Platform.OS === 'ios') {
-    console.error('[tuya] startOfflineBLEActivator is not supported on iOS.');
-    return Promise.reject('Not supported on iOS');
+    return tuyaV2Activator.offlinePairBLEDevice(params);
   }
   return tuya.startOfflineBLEActivator(params);
 }
 function startLateWifiActivation(params) {
   if (reactNative.Platform.OS === 'ios') {
-    console.error('[tuya] startLateWifiActivation is not supported on iOS.');
-    return Promise.reject('Not supported on iOS');
+    return tuyaV2Activator.activateBLEWifiChannel(params);
   }
   return tuya.startLateWifiActivator(params);
 }
@@ -366,6 +369,7 @@ exports.startBluetoothScan = startBluetoothScan;
 exports.startLateWifiActivation = startLateWifiActivation;
 exports.startOfflineBLEActivator = startOfflineBLEActivator;
 exports.startOta = startOta;
+exports.stopBluetoothScan = stopBluetoothScan;
 exports.stopConfig = stopConfig;
 exports.stopLePairing = stopLePairing;
 exports.unRegisterAllDevListeners = unRegisterAllDevListeners;
