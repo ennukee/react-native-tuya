@@ -19,6 +19,9 @@ export type DeviceBean = {
   mac: string;
   address: string;
   deviceType: number;
+  meta?: {
+    wifiEnable?: boolean;
+  }
 };
 
 export type DevListenerParams = {
