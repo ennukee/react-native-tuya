@@ -27,6 +27,9 @@ export declare type DeviceDetailResponse = {
     uuid: string;
     communicationId: string;
     connectionStatus: number;
+    meta?: {
+        wifiEnable?: boolean;
+    };
 };
 export declare type GetHomeDetailResponse = {
     deviceList: DeviceDetailResponse[];

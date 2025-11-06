@@ -37,6 +37,9 @@ export type DeviceDetailResponse = {
   uuid: string;
   communicationId: string;
   connectionStatus: number;
+  meta?: {
+    wifiEnable?: boolean;
+  }
 };
 export type GetHomeDetailResponse = {
   deviceList: DeviceDetailResponse[];
