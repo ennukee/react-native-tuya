@@ -53,7 +53,7 @@ RCT_EXPORT_METHOD(startBluetoothScan:(RCTPromiseResolveBlock)resolver rejecter:(
     [[ThingSmartBLEManager sharedInstance] stopListening:NO];
     self.scanResolver([deviceInfo yy_modelToJSONObject]);
     self.scanResolver = nil; // Clear the resolve block to prevent resolutions
-    [[ThingSmartBLEManager sharedInstance] stopListening:YES];
+    [[ThingSmartBLEManager sharedInstance] stopListening:NO];
   }
 }
 
